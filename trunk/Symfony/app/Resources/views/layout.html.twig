@@ -1,0 +1,49 @@
+{# app/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+		<title>{% block title %}Amine{% endblock %}</title>
+
+		{% block stylesheets %}
+			<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
+		{% endblock %}
+	</head>
+
+	<body>
+		<div class="container">
+			<div id="header" class="hero-unit">
+				<h1 class="header">Site d'éducation</h1>
+				<h2 class="slogon">depot de cours et échange d'information ....</h2> 
+			</div>
+
+			<div class="row">
+				<div id="menu" class="span3">
+					<h3>Le blog</h3>
+					<ul class="nav nav-pills nav-stacked">
+						<li><a href="{{ path('subject') }}">Accueil du Forum</a></li>
+						<li><a href="{{ path('subject_new') }}">Ajouter un Sujet</a></li>
+					</ul>
+				</div>
+				<div id="content" class="span9">
+					{% block body %}
+					{% endblock %}
+				</div>
+			</div>
+
+			<hr>
+
+			<footer>
+				<p>The sky's the limit &copy; 2012 and beyond.</p>
+			</div>
+		</div>
+	</body>
+
+	{% block javascripts %}
+		{# Ajoutez ce javascript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+		<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+	{% endblock %}
+
+</html>
