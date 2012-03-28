@@ -1,0 +1,16 @@
+ProjetCoursBundle:
+    resource: "@ProjetCoursBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ProjetEnseignementBundle:
+    resource: "@ProjetEnseignementBundle/Resources/config/routing.yml"
+    prefix:   /
+
+AmineForumBundle:
+    resource: "@AmineForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal
