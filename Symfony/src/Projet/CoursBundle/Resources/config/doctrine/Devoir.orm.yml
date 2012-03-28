@@ -1,0 +1,16 @@
+Projet\CoursBundle\Entity\Devoir:
+  type: entity
+  table: null
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    description:
+      type: text
+    created_at:
+      type: datetime
+    expire_at:
+      type: datetime
+  lifecycleCallbacks: {  }

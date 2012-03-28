@@ -1,0 +1,19 @@
+Projet\CoursBundle\Entity\Critere:
+  type: entity
+  table: null
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: '50'
+    note:
+      type: integer
+    created_at:
+      type: datetime
+    description:
+      type: text
+  lifecycleCallbacks: {  }

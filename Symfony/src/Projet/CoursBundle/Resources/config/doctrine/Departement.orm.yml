@@ -1,0 +1,17 @@
+Projet\CoursBundle\Entity\Departement:
+  type: entity
+  table: null
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    nom:
+      type: string
+      length: '60'
+    description:
+      type: text
+    created_at:
+      type: datetime
+  lifecycleCallbacks: {  }
