@@ -1,0 +1,52 @@
+{% extends "ProjetCoursBundle::layout.html.twig" %}
+
+{% block title %}
+	Accueil Cours- {{ parent() }}
+{% endblock %}
+
+{% block Enseignement_body %}
+
+<h1>Enseignement list</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Visibilite</th>
+            <th>Actif</th>
+            <th>Created_at</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.nom }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.visibilite }}</td>
+            <td>{{ entity.actif }}</td>
+            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('enseignement_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('enseignement_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('enseignement_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>
+{% endblock %}

@@ -1,0 +1,7 @@
+parameters:
+#    projet_cours.example.class: Projet\CoursBundle\Example
+
+services:
+#    projet_cours.example:
+#        class: %projet_cours.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

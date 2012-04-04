@@ -1,0 +1,30 @@
+devoir:
+    pattern:  /
+    defaults: { _controller: "ProjetCoursBundle:Devoir:index" }
+
+devoir_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetCoursBundle:Devoir:show" }
+
+devoir_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetCoursBundle:Devoir:new" }
+
+devoir_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetCoursBundle:Devoir:create" }
+    requirements: { _method: post }
+
+devoir_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetCoursBundle:Devoir:edit" }
+
+devoir_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetCoursBundle:Devoir:update" }
+    requirements: { _method: post }
+
+devoir_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetCoursBundle:Devoir:delete" }
+    requirements: { _method: post }

@@ -1,0 +1,21 @@
+ProjetTestBundle:
+    resource: "@ProjetTestBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ProjetForumBundle:
+    resource: "@ProjetForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ProjetCoursBundle:
+    resource: "@ProjetCoursBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ProjetUserBundle:
+    resource: "@ProjetUserBundle/Resources/config/routing.yml"
+    prefix:   /    
+
+
+# Internal routing configuration to handle ESI
+#_internal:
+#   resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#   prefix:   /_internal

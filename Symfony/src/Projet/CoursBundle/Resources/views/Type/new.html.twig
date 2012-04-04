@@ -1,0 +1,25 @@
+{% extends "ProjetCoursBundle::layout.html.twig" %}
+
+{% block title %}
+	Accueil - {{ parent() }}
+{% endblock %}
+
+{% block Enseignement_body %}
+
+<h1>Type creation</h1>
+
+<form action="{{ path('type_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('type') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

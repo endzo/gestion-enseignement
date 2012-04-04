@@ -1,0 +1,45 @@
+<h1>Employee</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <td>{{ entity.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ entity.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Age</th>
+            <td>{{ entity.age }}</td>
+        </tr>
+        <tr>
+            <th>Salaire</th>
+            <td>{{ entity.salaire }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('employee') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('employee_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('employee_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

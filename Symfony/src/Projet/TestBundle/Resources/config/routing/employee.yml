@@ -1,0 +1,30 @@
+employee:
+    pattern:  /
+    defaults: { _controller: "ProjetTestBundle:Employee:index" }
+
+employee_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetTestBundle:Employee:show" }
+
+employee_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetTestBundle:Employee:new" }
+
+employee_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetTestBundle:Employee:create" }
+    requirements: { _method: post }
+
+employee_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetTestBundle:Employee:edit" }
+
+employee_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetTestBundle:Employee:update" }
+    requirements: { _method: post }
+
+employee_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetTestBundle:Employee:delete" }
+    requirements: { _method: post }
