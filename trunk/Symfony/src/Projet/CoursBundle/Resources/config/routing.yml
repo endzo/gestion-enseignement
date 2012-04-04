@@ -1,0 +1,27 @@
+Enseignement:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/enseignement.yml"
+    prefix:    /enseignement
+
+Critere:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/critere.yml"
+    prefix:    /critere
+    
+Type:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/type.yml"
+    prefix:    /type
+
+Departement:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/departement.yml"
+    prefix:    /departement
+
+Formation:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/formation.yml"
+    prefix:    /formation
+
+Devoir:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/devoir.yml"
+    prefix:    /devoir
+
+Document:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/document.yml"
+    prefix:    /document

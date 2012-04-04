@@ -1,0 +1,4 @@
+ProjetUserBundle_user:
+    resource: "@ProjetUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+

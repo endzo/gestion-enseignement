@@ -1,0 +1,7 @@
+Forum:
+    pattern:  /forum
+    defaults: { _controller: ProjetForumBundle:Sujet:index }
+
+Sujet:
+    resource:  "@ProjetForumBundle/Resources/config/routing/sujet.yml"
+    prefix:    /sujet
