@@ -1,7 +1,0 @@
-parameters:
-#    amine_forum.example.class: Amine\ForumBundle\Example
-
-services:
-#    amine_forum.example:
-#        class: %amine_forum.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
