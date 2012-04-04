@@ -1,3 +1,0 @@
-ProjetCoursBundle_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: ProjetCoursBundle:Default:index }
