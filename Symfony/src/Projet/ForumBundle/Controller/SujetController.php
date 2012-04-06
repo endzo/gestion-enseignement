@@ -6,7 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\ForumBundle\Entity\Sujet;
 use Projet\ForumBundle\Form\SujetType;
-
+use Projet\ForumBundle\Entity\Comment;
+use Projet\ForumBundle\Form\CommentType;
 /**
  * Sujet controller.
  *
@@ -17,11 +18,20 @@ class SujetController extends Controller
      * Lists all Sujet entities.
      *
      */
-    public function indexAction()
+    public function indexAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+    	
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$cours = $em->getRepository('ProjetCoursBundle:Enseignement')->find($id);
+    	
+    	if (!$cours) {
+    		throw $this->createNotFoundException('impossible de trouver le Cours');
+    	}
+    	
+        
 
-        $entities = $em->getRepository('ProjetForumBundle:Sujet')->findAll();
+        $entities =$cours->getSujets();
 
         return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
         		'entities' => $entities
@@ -43,10 +53,21 @@ class SujetController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        
+        
+        $comment = new Comment();
+        $form   = $this->createForm(new CommentType(), $comment);
+        
+        
+        $commentaires = $entity->getCommentaires();
+        
+        
 
         return $this->render('ProjetForumBundle:Sujet:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'form'        => $form->createView(),
+            'commentaires'=> $commentaires 
 
         ));
     }

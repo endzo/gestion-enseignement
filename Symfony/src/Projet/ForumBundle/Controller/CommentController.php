@@ -1,50 +1,50 @@
 <?php
 
-namespace Projet\CoursBundle\Controller;
+namespace Projet\ForumBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Projet\CoursBundle\Entity\Devoir;
-use Projet\CoursBundle\Form\DevoirType;
+use Projet\ForumBundle\Entity\Comment;
+use Projet\ForumBundle\Form\CommentType;
 
 /**
- * Devoir controller.
+ * Comment controller.
  *
  */
-class DevoirController extends Controller
+class CommentController extends Controller
 {
     /**
-     * Lists all Devoir entities.
+     * Lists all Comment entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('ProjetCoursBundle:Devoir')->findAll();
+        $entities = $em->getRepository('ProjetForumBundle:Comment')->findAll();
 
-        return $this->render('ProjetCoursBundle:Devoir:index.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:index.html.twig', array(
             'entities' => $entities
         ));
     }
 
     /**
-     * Finds and displays a Devoir entity.
+     * Finds and displays a Comment entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ProjetCoursBundle:Devoir')->find($id);
+        $entity = $em->getRepository('ProjetForumBundle:Comment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Devoir entity.');
+            throw $this->createNotFoundException('Unable to find Comment entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ProjetCoursBundle:Devoir:show.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
 
@@ -52,15 +52,15 @@ class DevoirController extends Controller
     }
 
     /**
-     * Displays a form to create a new Devoir entity.
+     * Displays a form to create a new Comment entity.
      *
      */
     public function newAction($id)
     {
-        $entity = new Devoir();
-        $form   = $this->createForm(new DevoirType(), $entity);
+        $entity = new Comment();
+        $form   = $this->createForm(new CommentType(), $entity);
 
-        return $this->render('ProjetCoursBundle:Devoir:new.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'id'     => $id
@@ -68,36 +68,37 @@ class DevoirController extends Controller
     }
 
     /**
-     * Creates a new Devoir entity.
+     * Creates a new Comment entity.
      *
      */
     public function createAction($id)
     {
-        $entity  = new Devoir();
+        $entity  = new Comment();
         $request = $this->getRequest();
-        $form    = $this->createForm(new DevoirType(), $entity);
+        $form    = $this->createForm(new CommentType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
         	
         	$em = $this->getDoctrine()->getEntityManager();
         	
-        	$cours = $em->getRepository('ProjetCoursBundle:Enseignement')->find($id);
+        	$sujet = $em->getRepository('ProjetForumBundle:Sujet')->find($id);
         	
-        	if (!$cours) {
-        		throw $this->createNotFoundException('Unable to find Cours entity.');
+        	if (!$sujet) {
+        		throw $this->createNotFoundException('Unable to find Sujet entity.');
         	}
         	
-        	$cours->addDevoir($entity);
+        	$sujet->addCommentaire($entity);
+        	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('devoir_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('sujet_show', array('id' => $id)));
             
         }
 
-        return $this->render('ProjetCoursBundle:Devoir:new.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'id'     => $id
@@ -105,23 +106,23 @@ class DevoirController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Devoir entity.
+     * Displays a form to edit an existing Comment entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ProjetCoursBundle:Devoir')->find($id);
+        $entity = $em->getRepository('ProjetForumBundle:Comment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Devoir entity.');
+            throw $this->createNotFoundException('Unable to find Comment entity.');
         }
 
-        $editForm = $this->createForm(new DevoirType(), $entity);
+        $editForm = $this->createForm(new CommentType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('ProjetCoursBundle:Devoir:edit.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -129,20 +130,20 @@ class DevoirController extends Controller
     }
 
     /**
-     * Edits an existing Devoir entity.
+     * Edits an existing Comment entity.
      *
      */
     public function updateAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entity = $em->getRepository('ProjetCoursBundle:Devoir')->find($id);
+        $entity = $em->getRepository('ProjetForumBundle:Comment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Devoir entity.');
+            throw $this->createNotFoundException('Unable to find Comment entity.');
         }
 
-        $editForm   = $this->createForm(new DevoirType(), $entity);
+        $editForm   = $this->createForm(new CommentType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -153,10 +154,10 @@ class DevoirController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('devoir_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('comment_edit', array('id' => $id)));
         }
 
-        return $this->render('ProjetCoursBundle:Devoir:edit.html.twig', array(
+        return $this->render('ProjetForumBundle:Comment:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -164,7 +165,7 @@ class DevoirController extends Controller
     }
 
     /**
-     * Deletes a Devoir entity.
+     * Deletes a Comment entity.
      *
      */
     public function deleteAction($id)
@@ -176,17 +177,17 @@ class DevoirController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
-            $entity = $em->getRepository('ProjetCoursBundle:Devoir')->find($id);
+            $entity = $em->getRepository('ProjetForumBundle:Comment')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Devoir entity.');
+                throw $this->createNotFoundException('Unable to find Comment entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('devoir'));
+        return $this->redirect($this->generateUrl('comment'));
     }
 
     private function createDeleteForm($id)

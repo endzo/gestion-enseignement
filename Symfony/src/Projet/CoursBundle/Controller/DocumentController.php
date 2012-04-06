@@ -55,14 +55,15 @@ class DocumentController extends Controller
      * Displays a form to create a new Document entity.
      *
      */
-    public function newAction()
+    public function newAction($id)
     {
         $entity = new Document();
         $form   = $this->createForm(new DocumentType(), $entity);
 
         return $this->render('ProjetCoursBundle:Document:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'id'     => $id
         ));
     }
 
@@ -70,7 +71,7 @@ class DocumentController extends Controller
      * Creates a new Document entity.
      *
      */
-    public function createAction()
+    public function createAction($id)
     {
         $entity  = new Document();
         $request = $this->getRequest();
@@ -78,9 +79,19 @@ class DocumentController extends Controller
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+        	
+        	$em = $this->getDoctrine()->getEntityManager();   	
+        	$cours = $em->getRepository('ProjetCoursBundle:Enseignement')->find($id);
+        	if (!$cours) {
+        		throw $this->createNotFoundException('Unable to find Enseignement entity.');
+        	}
+        	
+        	$cours->addDocument($entity);
+        	$entity->setChemin($entity->getNom().$entity->getCreatedAt()->format('Y_m_d_H_i_s'));
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
+            $form['attachement']->getData()->move($entity->getAbsolutePath(), $entity->getNom());
 
             return $this->redirect($this->generateUrl('document_show', array('id' => $entity->getId())));
             
@@ -88,7 +99,8 @@ class DocumentController extends Controller
 
         return $this->render('ProjetCoursBundle:Document:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'id'     => $id
         ));
     }
 

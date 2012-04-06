@@ -5,3 +5,7 @@ Forum:
 Sujet:
     resource:  "@ProjetForumBundle/Resources/config/routing/sujet.yml"
     prefix:    /sujet
+
+Comment:
+    resource:  "@ProjetForumBundle/Resources/config/routing/comment.yml"
+    prefix:    /comment    

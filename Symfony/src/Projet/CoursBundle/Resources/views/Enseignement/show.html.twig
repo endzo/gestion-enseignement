@@ -7,19 +7,15 @@
 {% block Enseignement_body %}
 	{# <b> {{ entity.title }} </b> est cr&eacute;&eacute; par : <b> {{ user.login }} </b> #}
 	
-	<div id="menu" class="span3">
+	
 	
 		{% include "ProjetCoursBundle:Enseignement:outils.html.twig" %}
 		
-	</div>
 	
 	
-	<table class="record_properties">
+	
+	<table class="table">
 	    <tbody>
-	        <tr>
-	            <th>Nom</th>
-	            <td>{{ entity.nom }}</td>
-	        </tr>
 	        <tr>
 	            <th>Description</th>
 	            <td>{{ entity.description }}</td>
@@ -29,11 +25,7 @@
 	            <td>{{ entity.visibilite }}</td>
 	        </tr>
 	        <tr>
-	            <th>Actif</th>
-	            <td>{{ entity.actif }}</td>
-	        </tr>
-	        <tr>
-	            <th>Created_at</th>
+	            <th>Créé le</th>
 	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
 	        </tr>
 	    </tbody>
@@ -53,6 +45,7 @@
 	<table class="table">
 	  
 	  {# affichage des differents types de devoirs #}
+	  <tr><th colspan="5" class="pagination-centered">Devoir</th></tr>
 	  <tr>
 	  		<th>TPs</th>
 	  		<th>TDs</th>

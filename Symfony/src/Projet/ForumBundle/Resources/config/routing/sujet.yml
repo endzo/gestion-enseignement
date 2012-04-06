@@ -2,6 +2,14 @@ sujet:
     pattern:  /
     defaults: { _controller: "ProjetForumBundle:Sujet:index" }
 
+sujet_addComment:
+    pattern:  /{id}/add_comment
+    defaults: { _controller: "ProjetForumBundle:Comment:new" }
+
+sujet_createComment:
+    pattern:  /{id}/create_comment
+    defaults: { _controller: "ProjetForumBundle:Comment:create" }
+
 sujet_show:
     pattern:  /{id}/show
     defaults: { _controller: "ProjetForumBundle:Sujet:show" }
