@@ -12,10 +12,11 @@ class DevoirType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('created_at')
+            //->add('created_at')
             ->add('expire_at')
             ->add('type')
-            ->add('enseignement')
+            //->add('document')
+            //->add('enseignement')
         ;
     }
 

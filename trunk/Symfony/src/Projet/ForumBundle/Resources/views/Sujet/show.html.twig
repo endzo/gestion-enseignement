@@ -6,49 +6,29 @@
 
 {% block Forum_body %}
 
-<h1>Sujet</h1>
+<h1>Sujet : {{ entity.nom }}</h1>
 
-<table class="record_properties">
+<table class="table">
     <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Nom</th>
-            <td>{{ entity.nom }}</td>
-        </tr>
         <tr>
             <th>Description</th>
             <td>{{ entity.description }}</td>
         </tr>
         <tr>
-            <th>Created_at</th>
+            <th>Créé le</th>
             <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Visibilite</th>
-            <td>{{ entity.visibilite }}</td>
         </tr>
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('sujet') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('sujet_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('sujet_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+
+<div id="commentList" class="alert">
+	{% include "ProjetForumBundle:Comment:index.html.twig" %}
+</div>
+
+
+<div id="newComment">
+	{% include "ProjetForumBundle:Comment:new.html.twig" %}
+</div>
+
 {% endblock %}

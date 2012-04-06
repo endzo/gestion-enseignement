@@ -21,7 +21,7 @@ class Devoir
 	// On définit le getter et le setter associé.
 	public function getDocument()
 	{
-		return $this->adresse;
+		return $this->document;
 	}
 	
 	// Ici, on force le type de l'argument à être une instance de notre entité Document.
@@ -167,7 +167,7 @@ class Devoir
 
     /**
      * @var datetime $expire_at
-     *
+     * 
      * @ORM\Column(name="expire_at", type="datetime")
      */
     private $expire_at;
@@ -179,6 +179,7 @@ class Devoir
     public function __construct()
     {
     	$this->created_at = new \DateTime('now');
+    	$this->expire_at = new \DateTime('now');
     }
     
     // toString méthode

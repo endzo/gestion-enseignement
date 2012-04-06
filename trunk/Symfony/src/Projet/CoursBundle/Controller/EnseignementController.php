@@ -53,7 +53,7 @@ class EnseignementController extends Controller
         $exercices = Devoir::getExercices($devoirs);
         $projets   = Devoir::getProjets($devoirs);
         $autres    = Devoir::getAutres($devoirs);
-        $documents  = $entity->getDocuments(); 
+        $documents = $entity->getDocuments(); 
 
         $deleteForm = $this->createDeleteForm($id);
 
@@ -207,64 +207,4 @@ class EnseignementController extends Controller
     
     
     
-	/**
-     * Displays a form to create a new Document entity.
-     *
-     */
-    public function addDocumentAction($id)
-    {
-        $entity = new Document();
-        $form   = $this->createForm(new DocumentType(), $entity);
-
-        return $this->render('ProjetCoursBundle:Enseignement:create_document.html.twig', array(
-            'entity' => $entity,
-            '$id'    => $id, 
-            'form'   => $form->createView()
-        ));
-    }
-    
-    
-    
-    /**
-     * Creates a new Document entity.
-     *
-     */
-    public function create_documentAction($id)
-    {
-    	$em = $this->getDoctrine()->getEntityManager();
-
-        $cours = $em->getRepository('ProjetCoursBundle:Enseignement')->find($id);
-
-        if (!$cours) {
-            throw $this->createNotFoundException('Unable to find Enseignement entity.');
-        }
-        
-    	$entity  = new Document();
-    	$request = $this->getRequest();
-    	$form    = $this->createForm(new DocumentType(), $entity);
-    	$form->bindRequest($request);
-    	if ($form->isValid()) {
-    		
-    		
-    		$cours->addDocument($entity);
-    		$entity->setChemin($entity->getNom().$entity->getCreatedAt()->format('Y_m_d_H_i_s'));
-    		
-    		$em = $this->getDoctrine()->getEntityManager();
-    		
-    		$em->persist($entity);
-    		
-    		$em->flush();
-    		
-    		$form['attachement']->getData()->move($entity->getAbsolutePath(), $entity->getNom());
-    
-    		return $this->redirect($this->generateUrl('document_show', array('id' => $entity->getId())));
-    
-    	}
-    
-    	return $this->render('ProjetCoursBundle:Enseignement:create_document.html.twig', array(
-			    'entity' => $entity,
-			    'id'     => $id,
-			    'form'   => $form->createView()
-			    ));
-    }
 }

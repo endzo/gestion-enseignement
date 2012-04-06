@@ -1,28 +1,33 @@
 enseignement_forum:
     pattern:  /{id}/forum
-    defaults: { _controller: "ProjetCoursBundle:Enseignement:forum" }
+    defaults: { _controller: "ProjetForumBundle:Sujet:index" }
 
 enseignement_addSujet:
     pattern:  /{id}/nouveau_sujet
     defaults: { _controller: "ProjetForumBundle:Sujet:new" }
 
 enseignement_createSujet:
-    pattern:  /{id}/create
+    pattern:  /{id}/create_Sujet
     defaults: { _controller: "ProjetForumBundle:Sujet:create" }
     requirements: { _method: post } 
 
 enseignement_addDocument:
     pattern:  /{id}/add_document
-    defaults: { _controller: "ProjetCoursBundle:Enseignement:create_document" }
+    defaults: { _controller: "ProjetCoursBundle:Document:new" }
 
-enseignement_create_document:
-    pattern:  /{id}/create
-    defaults: { _controller: "ProjetCoursBundle:Enseignement:create_document" }
+enseignement_createDocument:
+    pattern:  /{id}/create_Document
+    defaults: { _controller: "ProjetCoursBundle:Document:create" }
     requirements: { _method: post } 
 
 enseignement_addDevoir:
     pattern:  /{id}/add_devoir
-    defaults: { _controller: "ProjetCoursBundle:Enseignement:create_devoir" }
+    defaults: { _controller: "ProjetCoursBundle:Devoir:new" }
+
+enseignement_createDevoir:
+    pattern:  /{id}/create_Devoir
+    defaults: { _controller: "ProjetCoursBundle:Devoir:create" }
+    requirements: { _method: post } 
 
 enseignement:
     pattern:  /
