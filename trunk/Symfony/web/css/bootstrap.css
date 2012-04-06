@@ -7,6 +7,36 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ .warningbox
+{
+	text-align			: center;
+	width				: 15px;
+	height				: 15px;
+	margin-top			: -10px;
+	border				: 1px solid #999999;
+	border-radius		: 10px;
+	position			: absolute;
+	margin-left			: -4px;
+	background-color	: white;
+}
+ 
+.alertnbr
+{
+	color				: red;
+}
+ 
+.notifnbr
+{
+	color				: orange;
+}
+ 
+.msgnbr
+{
+	color				: #999999;
+}
+ 
+ 
+ 
 article,
 aside,
 details,
