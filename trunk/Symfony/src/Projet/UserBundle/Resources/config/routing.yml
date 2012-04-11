@@ -1,6 +1,10 @@
-user_message:
-    pattern:  /{id}/new_message
-    defaults: { _controller: "ProjetUserBundle:Message:new" }
+user_messages:
+    pattern:  /mes_messages
+    defaults: { _controller: "ProjetUserBundle:Message:index" }
+
+user_messageto:
+    pattern:  /messageTo/{username}
+    defaults: { _controller: "ProjetUserBundle:Message:newTo" }
 
 user_login:
     pattern:  /login
