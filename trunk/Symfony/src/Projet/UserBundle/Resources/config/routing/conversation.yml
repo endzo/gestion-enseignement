@@ -1,0 +1,30 @@
+conversation:
+    pattern:  /
+    defaults: { _controller: "ProjetUserBundle:Conversation:index" }
+
+conversation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetUserBundle:Conversation:show" }
+
+conversation_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetUserBundle:Conversation:new" }
+
+conversation_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetUserBundle:Conversation:create" }
+    requirements: { _method: post }
+
+conversation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetUserBundle:Conversation:edit" }
+
+conversation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetUserBundle:Conversation:update" }
+    requirements: { _method: post }
+
+conversation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetUserBundle:Conversation:delete" }
+    requirements: { _method: post }

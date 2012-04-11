@@ -2,9 +2,12 @@
 
 namespace Projet\UserBundle\Controller;
 
+use Projet\UserBundle\Entity\Conversation;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Projet\UserBundle\Entity\Message;
 use Projet\UserBundle\Form\MessageType;
+use Projet\UserBundle\Form\ConversationType;
 
 /**
  * Message controller.
@@ -47,13 +50,15 @@ class MessageController extends Controller
 
         
         $conversations = $entity->getConversations();
+        $form   = $this->createForm(new ConversationType(), new Conversation());
         
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ProjetUserBundle:Message:show.html.twig', array(
-            'entity'      => $entity,
+            'entity'        => $entity,
             'conversations' => $conversations,
-            'delete_form' => $deleteForm->createView(),
+            'delete_form'   => $deleteForm->createView(),
+            'form'          => $form->createview() 
 
         ));
     }
