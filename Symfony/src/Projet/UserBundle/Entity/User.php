@@ -17,6 +17,26 @@ class User extends BaseUser
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Conversation", mappedBy="user")
+	 */
+	private $conversations;
+	
+	public function getConversations()
+	{
+		return $this->conversations;
+	}
+	
+	public function addConversation(\Projet\UserBundle\Entity\Conversation $conversation)
+	{
+		$this->conversations[] = $conversation;
+		$conversation->setMessage($this);
+	}
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Message", mappedBy="user")
 	 */
 	private $messages;

@@ -11,9 +11,7 @@
 <table class="records_list">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Sujet</th>
-            <th>Message</th>
             <th>Destinataire</th>
             <th>Created_at</th>
             <th>Actions</th>
@@ -22,9 +20,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('message_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.sujet }}</td>
-            <td>{{ entity.message }}</td>
             <td>{{ entity.destinataire }}</td>
             <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
             <td>

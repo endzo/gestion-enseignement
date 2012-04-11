@@ -12,4 +12,22 @@ use Doctrine\ORM\EntityRepository;
  */
 class MessageRepository extends EntityRepository
 {
+	
+	public function findUserMessages($id,$userName)
+	{
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('m')
+		->from('ProjetUserBundle:Message', 'm')
+		->where('m.user = :id')
+		->setParameter('id', $id)
+		->orWhere('m.destinataire = :userName')
+		->setParameter('userName', $userName);
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
 }

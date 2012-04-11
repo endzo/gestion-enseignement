@@ -14,6 +14,27 @@ class Message
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Conversation", mappedBy="message")
+	 */
+	private $conversations;
+	
+	public function getConversations()
+	{
+		return $this->conversations;
+	}
+	
+	public function addConversation(\Projet\UserBundle\Entity\Conversation $conversation)
+	{
+		$this->conversations[] = $conversation;
+		$conversation->setMessage($this);
+	}
+	
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\User", inversedBy="messages")
 	 */
 	private $user;

@@ -3,7 +3,6 @@
 namespace Projet\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Projet\UserBundle\Entity\Message;
 use Projet\UserBundle\Form\MessageType;
 
@@ -19,9 +18,13 @@ class MessageController extends Controller
      */
     public function indexAction()
     {
+    	// recuperation de l'utilisateur courant
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('ProjetUserBundle:Message')->findAll();
+        $entities = $em->getRepository('ProjetUserBundle:Message')
+        				->findUserMessages($user->getId(),$user->getUsername());
 
         return $this->render('ProjetUserBundle:Message:index.html.twig', array(
             'entities' => $entities
@@ -42,10 +45,14 @@ class MessageController extends Controller
             throw $this->createNotFoundException('Unable to find Message entity.');
         }
 
+        
+        $conversations = $entity->getConversations();
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('ProjetUserBundle:Message:show.html.twig', array(
             'entity'      => $entity,
+            'conversations' => $conversations,
             'delete_form' => $deleteForm->createView(),
 
         ));
