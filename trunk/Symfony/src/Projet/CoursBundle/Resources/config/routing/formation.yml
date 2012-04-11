@@ -1,0 +1,30 @@
+formation:
+    pattern:  /
+    defaults: { _controller: "ProjetCoursBundle:Formation:index" }
+
+formation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetCoursBundle:Formation:show" }
+
+formation_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetCoursBundle:Formation:new" }
+
+formation_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetCoursBundle:Formation:create" }
+    requirements: { _method: post }
+
+formation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetCoursBundle:Formation:edit" }
+
+formation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetCoursBundle:Formation:update" }
+    requirements: { _method: post }
+
+formation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetCoursBundle:Formation:delete" }
+    requirements: { _method: post }
