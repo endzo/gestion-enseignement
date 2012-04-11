@@ -10,6 +10,10 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
 		{% endblock %}
+		<script src="{{ asset('js/jquery-1.7.1.js') }}"></script>
+		<script src="{{ asset('js/jquery-ui-1.8.18.custom.min.js') }}"></script>
+		<script src="{{ asset('js/notifications.js') }}"></script>
+		<script src="{{ asset('js/utils.js') }}"></script>
 	</head>
 
 	<body>
@@ -25,6 +29,22 @@
 		</div>
 		
 		
+		<div id="notif-box" class="notif-content pull-right">
+			<div id="alerte-content" class=""><h2>Alertes</h2><br>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+			</div>
+		</div>
+		
+		
+		
+		
 		<div class="container">
 			<div id="header" class="hero-unit">
 				<h1 class="header">Site d'éducation</h1>
@@ -33,12 +53,13 @@
 
 			<div class="row">
 				<div id="menu" class="span3">
-				
-			 		<h3>Menu</h3>
-			 		{% include "::menu.html.twig" %}
-					
-					
+					{% block menu %}
+			 			<h3>Menu</h3>
+			 			{% include "::menu.html.twig" %}
+					{% endblock %}					
 				</div>
+				
+				
 				<div id="content" class="span9">
 					{% block body %}
 					{% endblock %}
