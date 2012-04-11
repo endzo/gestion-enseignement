@@ -21,3 +21,7 @@ ProjetUserBundle_promotion:
 ProjetUserBundle_message:
     resource: "@ProjetUserBundle/Resources/config/routing/message.yml"
     prefix:   /message
+
+ProjetUserBundle_conversation:
+    resource: "@ProjetUserBundle/Resources/config/routing/conversation.yml"
+    prefix:   /conversation
