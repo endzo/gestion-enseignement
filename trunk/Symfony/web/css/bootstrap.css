@@ -7,6 +7,14 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ .notif-content
+ {
+ 	width				: 200px;
+ 	max-height			: 500px; 
+ }
+ 
+ 
+ 
  .warningbox
 {
 	text-align			: center;
@@ -20,7 +28,7 @@
 	background-color	: white;
 }
  
-.alertnbr
+.nbr-alerte
 {
 	color				: red;
 }
