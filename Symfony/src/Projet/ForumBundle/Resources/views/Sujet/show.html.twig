@@ -1,12 +1,12 @@
 {% extends "ProjetForumBundle::layout.html.twig" %}
 
 {% block title %}
-	Nouveau - {{ parent() }}
+	{{ entity.nom }} - {{ parent() }}
 {% endblock %}
 
 {% block Forum_body %}
 
-<h1>Sujet : {{ entity.nom }}</h1>
+<div class="alert alert-success"><h2>Sujet : {{ entity.nom }}</h2></div>
 
 <table class="table">
     <tbody>
@@ -22,7 +22,7 @@
 </table>
 
 
-<div id="commentList" class="alert">
+<div id="commentList" class="alert alert-danger">
 	{% include "ProjetForumBundle:Comment:index.html.twig" %}
 </div>
 

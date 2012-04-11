@@ -4,11 +4,14 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<ul class="nav">
-				<li><a href="{{ path('enseignement_addDocument', { 'id': entity.id }) }}">Ajouter un document</a></li>
-				<li><a href="{{ path('enseignement_addDevoir'  , { 'id': entity.id }) }}">Ajouter un devoir  </a></li>
+				
 				<li><a href="{{ path('enseignement_addSujet'   , { 'id': entity.id }) }}">Ajouter un sujet  </a></li>
 				<li><a href="{{ path('enseignement_forum'      , { 'id': entity.id }) }}">Acceder au Forum  </a></li>
-    			<li><a href="{{ path('enseignement')                                  }}">Back to the list</a></li>
+    			
+				{% if is_granted('ROLE_ENSEIGNANT') %}
+
+				<li><a href="{{ path('enseignement_addDocument', { 'id': entity.id }) }}">Ajouter un document</a></li>
+				<li><a href="{{ path('enseignement_addDevoir'  , { 'id': entity.id }) }}">Ajouter un devoir  </a></li>
     			<li><a href="{{ path('enseignement_edit', { 'id': entity.id }) }}">Edit</a></li>
     			<li>
         			<form action="{{ path('enseignement_delete', { 'id': entity.id }) }}" method="post">
@@ -16,6 +19,9 @@
             			<button type="submit" class="btn btn-danger">Delete</button>
         			</form>
     			</li>
+    			
+ 				{% endif %}   			
+    			
 			</ul>
 		</div>
 	</div>

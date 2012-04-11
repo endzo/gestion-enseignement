@@ -1,4 +1,11 @@
+user_login:
+    pattern:  /login
+    defaults: { _controller: "ProjetUserBundle:User:login" }
+
 ProjetUserBundle_user:
     resource: "@ProjetUserBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
+ProjetUserBundle_promotion:
+    resource: "@ProjetUserBundle/Resources/config/routing/promotion.yml"
+    prefix:   /promotion

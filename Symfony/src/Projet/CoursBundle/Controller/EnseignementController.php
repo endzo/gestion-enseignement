@@ -7,6 +7,9 @@ use Projet\CoursBundle\Entity\Devoir;
 use Projet\CoursBundle\Entity\Document;
 use Projet\CoursBundle\Form\DocumentType;
 
+use Projet\UserBundle\Entity\Etudiant;
+use Projet\UserBundle\Entity\Promotion;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\CoursBundle\Entity\Enseignement;
@@ -19,6 +22,39 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class EnseignementController extends Controller
 {
+	
+	/**
+	 * Liste des cours par rapport à un Utilisateur
+	 *
+	 */
+	public function mesCoursAction()
+	{
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		
+		
+		if($this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+		{
+			$entities = $user->getEnseignements();
+		}
+		else 
+			if($this->get('security.context')->isGranted('ROLE_USER') ) 
+			{		
+				$entities = $user->getPromotion()->getEnseignements();
+			}
+		
+	
+		
+	
+		return $this->render('ProjetCoursBundle:Enseignement:index.html.twig', array(
+	'entities' => $entities
+	));
+	}
+	
+	
+	
+	
+	
+	
     /**
      * Lists all Enseignement entities.
      *

@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Projet\CoursBundle\Entity\Document;
 use Projet\CoursBundle\Form\DocumentType;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 /**
  * Document controller.
  *
@@ -91,7 +93,23 @@ class DocumentController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
-            $form['attachement']->getData()->move($entity->getAbsolutePath(), $entity->getNom());
+            $form['attachement']->getData()->move($entity->getAbsolutePath(), $entity->getNom().'.'.$entity->getAttachement()->guessExtension());
+            
+            
+            
+             //Envois d'un mail avec le swift mailer
+            $message = \Swift_Message::newInstance()
+            ->setSubject('Hello Email')
+            ->setFrom('send@example.com')
+            ->setTo('amine.hallili@gmail.com')
+            ->setBody($this->renderView('ProjetCoursBundle:Document:show.html.twig', 
+            	array(
+	            	'entity'      => $entity,
+	            	'delete_form' => $this->createDeleteForm($id)->createView())),
+            	'text/html'
+            );
+            
+            $this->get('mailer')->send($message);
 
             return $this->redirect($this->generateUrl('document_show', array('id' => $entity->getId())));
             

@@ -1,3 +1,7 @@
+my_app_greeting:
+    pattern:  /test_form/{formName}
+    defaults: { _controller: "ProjetTestBundle:Employee:greeting" }
+
 employee:
     pattern:  /
     defaults: { _controller: "ProjetTestBundle:Employee:index" }

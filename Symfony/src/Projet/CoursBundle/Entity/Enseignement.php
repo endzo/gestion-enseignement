@@ -13,6 +13,42 @@ use Doctrine\ORM\Mapping as ORM;
 class Enseignement
 {
 	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\Enseignant", inversedBy="enseignements")
+	 */
+	private $enseignant;
+	
+	public function getEnseignant()
+	{
+		return $this->enseignant;
+	}
+	
+	public function setEnseignant(\Projet\UserBundle\Entity\Enseignant $enseignant)
+	{
+		$this->enseignant = $enseignant;
+	}
+	
+	
+	
+	
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\Promotion", inversedBy="enseignements")
+	 */
+	private $promotion;
+	
+	public function getPromotion()
+	{
+		return $this->promotion;
+	}
+	
+	public function setPromotion(\Projet\UserBundle\Entity\Promotion $promotion)
+	{
+		$this->promotion = $promotion;
+	}
+	
+	
+	
 	//relation  entre enseignement et sujet
 	// sujet est la proprietaire de la relation
 	/**

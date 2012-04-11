@@ -1,54 +1,73 @@
 <?php
 
-namespace Projet\CoursBundle\Entity;
+namespace Projet\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Projet\CoursBundle\Entity\Formation
+ * Projet\UserBundle\Entity\Promotion
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Projet\CoursBundle\Entity\FormationRepository")
+ * @ORM\Entity(repositoryClass="Projet\UserBundle\Entity\PromotionRepository")
  */
-class Formation
+class Promotion
 {
 	
-	// Relation entre Promotion et formation
-	// promotion est la proprietaire de la relation
+	// Relation entre promootion et formation
+	// Promotion est la proprietaire de la relation
 	/**
-	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Promotion", mappedBy="formation")
+	 * @ORM\ManyToOne(targetEntity="Projet\CoursBundle\Entity\Formation", inversedBy="promotions")
 	 */
-	private $promotions;
+	private $formation;
 	
-	public function getPromotions()
+	public function getFormation()
 	{
-		return $this->promotions;
+		return $this->formation;
 	}
 	
-	public function addPromotion(\Projet\UserBundle\Entity\Promotion $promotion)
+	public function setFormation(\Projet\CoursBundle\Entity\Formation $formation)
 	{
-		$this->promotions[] = $promotion;
-		$promotion->setFormation($this);
+		$this->formation = $formation;
 	}
 	
 	
 	
 	
-	// relation entre departement et formation 
-	// formation est la proprietaire de la relation 
 	/**
-	 * @ORM\ManyToOne(targetEntity="Projet\CoursBundle\Entity\Departement", inversedBy="formations")
+	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Enseignement", mappedBy="promotion")
 	 */
-	private $departement;
+	private $enseignements;
 	
-	public function getDepartement()
+	public function getEnseignements()
 	{
-		return $this->departement;
+		return $this->enseignements;
 	}
 	
-	public function setDepartement(\Projet\CoursBundle\Entity\Departement $departement)
+	public function addEnseignement(\Projet\CoursBundle\Entity\Enseignement $enseignement)
 	{
-		$this->departement = $departement;
+		$this->enseignements[] = $enseignement;
+		$enseignement->setPromotion($this);
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Etudiant", mappedBy="promotion")
+	 */
+	private $etudiants;
+	
+	public function getEtudiants()
+	{
+		return $this->etudiants;
+	}
+	
+	public function addEtudiant(\Projet\UserBundle\Entity\Etudiant $etudiant)
+	{
+		$this->etudiants[] = $etudiant;
+		$etudiant->setPromotion($this);
 	}
 	
 	
@@ -86,22 +105,27 @@ class Formation
      */
     private $created_at;
 
+    /**
+     * @var date $annee
+     *
+     * @ORM\Column(name="annee", type="date")
+     */
+    private $annee;
 
-    
+
     
     
     // constructeur
     public function __construct()
     {
     	$this->created_at = new \DateTime('now');
+    	$this->annee = new \DateTime('now');
     }
     
     // toString méthode
     public function __toString() {
     	return $this->nom;
     }
-    
-    
     
     
     
@@ -173,5 +197,25 @@ class Formation
     public function getCreatedAt()
     {
         return $this->created_at;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param date $annee
+     */
+    public function setAnnee($annee)
+    {
+        $this->annee = $annee;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return date 
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
     }
 }

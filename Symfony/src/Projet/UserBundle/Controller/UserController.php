@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\UserBundle\Entity\User;
 use Projet\UserBundle\Form\UserType;
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * User controller.
@@ -13,6 +15,53 @@ use Projet\UserBundle\Form\UserType;
  */
 class UserController extends Controller
 {
+	
+	
+	public function loginAction()
+    {
+        $request = $this->container->get('request');
+        /* @var $request \Symfony\Component\HttpFoundation\Request */
+        $session = $request->getSession();
+        /* @var $session \Symfony\Component\HttpFoundation\Session */
+
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = '';
+        }
+
+        if ($error) {
+            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
+            $error = $error->getMessage();
+        }
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+
+        $csrfToken = $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate');
+
+        return $this->container->get('templating')->renderResponse('ProjetUserBundle:User:login.html.'.$this->container->getParameter('fos_user.template.engine'), array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+            'csrf_token' => $csrfToken,
+        ));
+    }
+
+    public function checkAction()
+    {
+        throw new \RuntimeException('You must configure the check path to be handled by the firewall using form_login in your security firewall configuration.');
+    }
+
+    public function logoutAction()
+    {
+        throw new \RuntimeException('You must activate the logout in your security firewall configuration.');
+    }
+	
+	
+	
     /**
      * Lists all User entities.
      *
@@ -57,6 +106,15 @@ class UserController extends Controller
      */
     public function newAction()
     {
+    	// On teste que l'utilisateur dispose bien du rôle ROLE_AUTEUR
+    	if( ! $this->get('security.context')->isGranted('ROLE_ADMIN') )
+    	{
+    		// Sinon on déclenche une exception "Accès Interdit"
+    		throw new AccessDeniedHttpException('Accès limité aux administrateur');
+    	}
+    	
+    	
+    	
         $entity = new User();
         $form   = $this->createForm(new UserType(), $entity);
 

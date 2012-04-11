@@ -81,16 +81,12 @@ class CommentController extends Controller
         if ($form->isValid()) {
         	
         	$em = $this->getDoctrine()->getEntityManager();
-        	
         	$sujet = $em->getRepository('ProjetForumBundle:Sujet')->find($id);
-        	
-        	if (!$sujet) {
-        		throw $this->createNotFoundException('Unable to find Sujet entity.');
-        	}
-        	
+        	if (!$sujet) { throw $this->createNotFoundException('Unable to find Sujet entity.'); }
         	$sujet->addCommentaire($entity);
         	
             $em = $this->getDoctrine()->getEntityManager();
+            //$entity->setCommentaire(md5($entity->getCommentaire()));
             $em->persist($entity);
             $em->flush();
 
