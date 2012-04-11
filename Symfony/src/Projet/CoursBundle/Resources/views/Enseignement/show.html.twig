@@ -1,0 +1,96 @@
+{% extends "ProjetCoursBundle::layout.html.twig" %}
+
+{% block title %}
+	Accueil - {{ parent() }}
+{% endblock %}
+
+{% block Enseignement_body %}
+	{# <b> {{ entity.title }} </b> est cr&eacute;&eacute; par : <b> {{ user.login }} </b> #}
+	
+	
+	
+		{% include "ProjetCoursBundle:Enseignement:outils.html.twig" %}
+		
+	
+	
+	
+	<table class="table">
+	    <tbody>
+	        <tr>
+	            <th>Description</th>
+	            <td>{{ entity.description }}</td>
+	        </tr>
+	        <tr>
+	            <th>Visibilite</th>
+	            <td>{{ entity.visibilite }}</td>
+	        </tr>
+	        <tr>
+	            <th>Créé le</th>
+	            <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+	        </tr>
+	    </tbody>
+	</table>
+	
+	<table class="table">
+		<tr><th>Documents</th></tr>
+		<tr>
+	  		<td>
+				{% for document in documents %}
+				<br /><a href="{{ path('document_show', { 'id': document.id }) }}">{{document.getNom}}</a>
+				{% endfor %}
+			</td>
+		</tr>
+	</table>
+	
+	<table class="table">
+	  
+	  {# affichage des differents types de devoirs #}
+	  <tr><th colspan="5" class="pagination-centered">Devoir</th></tr>
+	  <tr>
+	  		<th>TPs</th>
+	  		<th>TDs</th>
+	  		<th>Exercices</th>
+	  		<th>Projet</th>
+	  		<th>Autres</th>
+	  </tr>
+	  
+	  <tr>
+	  	<td>
+		  	{% for tp in tps %}
+		  			<br />
+		    		<a href="{{ path('devoir_show', { 'id': tp.id }) }}"> {{tp.nom}} </a>
+		  	{% endfor %}
+	  	</td>
+	  	
+	  	<td>
+	  		{% for td in tds %}
+	  				<br />
+	    			<a href="{{ path('devoir_show', { 'id': td.id }) }}"> {{td.nom}} </a>
+	  		{% endfor %}
+	  	</td>
+
+	  	<td>
+		  {% for exercice in exercices %}
+		  		<br />
+		    	<a href="{{ path('devoir_show', { 'id': exercice.id }) }}"> {{exercice.nom}} </a>
+		  {% endfor %}
+		</td>
+
+		<td>
+		  {% for projet in projets %}
+		  		<br />
+		    	<a href="{{ path('devoir_show', { 'id': projet.id }) }}"> {{projet.nom}} </a>
+		  {% endfor %}
+		</td>
+
+		<td>
+		  {% for autre in autres %}
+		  		<br />
+		    	<a href="{{ path('devoir_show', { 'id': autre.id }) }}"> {{autre.nom}} </a>
+		  {% endfor %}
+		</td>
+	</tr>
+	  	  
+	</table>
+
+{% endblock %}

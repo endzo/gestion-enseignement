@@ -1,0 +1,30 @@
+comment:
+    pattern:  /
+    defaults: { _controller: "ProjetForumBundle:Comment:index" }
+
+comment_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetForumBundle:Comment:show" }
+
+comment_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetForumBundle:Comment:new" }
+
+comment_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetForumBundle:Comment:create" }
+    requirements: { _method: post }
+
+comment_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetForumBundle:Comment:edit" }
+
+comment_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetForumBundle:Comment:update" }
+    requirements: { _method: post }
+
+comment_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetForumBundle:Comment:delete" }
+    requirements: { _method: post }

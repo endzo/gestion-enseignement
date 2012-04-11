@@ -1,0 +1,19 @@
+user_message:
+    pattern:  /{id}/new_message
+    defaults: { _controller: "ProjetUserBundle:Message:new" }
+
+user_login:
+    pattern:  /login
+    defaults: { _controller: "ProjetUserBundle:User:login" }
+
+ProjetUserBundle_user:
+    resource: "@ProjetUserBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+
+ProjetUserBundle_promotion:
+    resource: "@ProjetUserBundle/Resources/config/routing/promotion.yml"
+    prefix:   /promotion
+
+ProjetUserBundle_message:
+    resource: "@ProjetUserBundle/Resources/config/routing/message.yml"
+    prefix:   /message
