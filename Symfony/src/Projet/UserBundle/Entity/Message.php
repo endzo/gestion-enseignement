@@ -69,6 +69,20 @@ class Message
      */
     private $created_at;
 
+    
+    
+    // constructeur
+    public function __construct()
+    {
+    	$this->created_at = new \DateTime('now');
+    }
+    
+    // toString méthode
+    public function __toString() {
+    	return $this->message;
+    }
+    
+    
 
     /**
      * Get id

@@ -97,6 +97,7 @@ class DocumentController extends Controller
             
             
             
+            
              //Envois d'un mail avec le swift mailer
             $message = \Swift_Message::newInstance()
             ->setSubject('Hello Email')
