@@ -50,10 +50,6 @@ class SujetController extends Controller
 			
 		}
 	
-		//die(var_dump($entities));
-	
-		//$entities =$cours->getSujets();
-	
 		return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
 	'entities' => $entities
 	));
