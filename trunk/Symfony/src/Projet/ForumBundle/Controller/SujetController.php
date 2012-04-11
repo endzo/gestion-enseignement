@@ -2,6 +2,8 @@
 
 namespace Projet\ForumBundle\Controller;
 
+use Symfony\Component\Validator\Constraints\Collection;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\ForumBundle\Entity\Sujet;
@@ -14,6 +16,54 @@ use Projet\ForumBundle\Form\CommentType;
  */
 class SujetController extends Controller
 {
+	/**
+	 * Liste de tous les sujet concernant l'utilisateur
+	 *
+	 */
+	public function monForumAction()
+	{
+		// recuperation de l'utilisateur courant
+		$user = $this->container->get('security.context')->getToken()->getUser();
+		
+		// test du Role de l'utilisateur
+		if($this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+		{
+			$courss = $user->getEnseignements();
+		}
+		else
+		if($this->get('security.context')->isGranted('ROLE_USER') )
+		{
+			$courss = $user->getPromotion()->getEnseignements();
+		}
+		
+		
+		//$entities = array();
+		foreach ($courss as $cours) {
+			$sujets = $cours->getSujets();
+			//die(var_dump($sujets));
+			//$entities = $sujets;
+			foreach ($sujets as $sujet) {
+				//die(var_dump($sujet));
+				$entities[] = $sujet;
+			}
+			
+			
+		}
+	
+		//die(var_dump($entities));
+	
+		//$entities =$cours->getSujets();
+	
+		return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
+	'entities' => $entities
+	));
+	}
+	
+	
+	
+	
+	
+	
     /**
      * Lists all Sujet entities.
      *

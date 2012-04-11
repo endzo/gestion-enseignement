@@ -1,3 +1,7 @@
+mes_cours:
+    pattern:  /mes_cours
+    defaults: { _controller: "ProjetCoursBundle:Enseignement:mesCours" }
+
 Enseignement:
     resource:  "@ProjetCoursBundle/Resources/config/routing/enseignement.yml"
     prefix:    /enseignement

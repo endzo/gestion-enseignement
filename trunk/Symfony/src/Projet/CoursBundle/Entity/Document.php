@@ -66,7 +66,7 @@ class Document
     
     /**
      * @var string $attachement
-     * @Assert\File(maxSize="6000000")
+     * @Assert\File(maxSize="10000000")
      */
     public $attachement;
 

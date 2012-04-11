@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 <h1>Employee list</h1>
 <div id="content">
-  <form id="myForm" action="{{path('my_app_greeting', {'formName': 'myForm'})}}" method="POST" >
+  <form id="myForm" action="{{path('my_app_greeting', 'formName': 'myForm')}}" method="POST" >
     Write your name here: 
     <input type="text" name="name" id="nameId" value="" /><br />
     <input type="submit" value="Send" />
