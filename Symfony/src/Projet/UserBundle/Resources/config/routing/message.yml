@@ -2,6 +2,14 @@ message:
     pattern:  /
     defaults: { _controller: "ProjetUserBundle:Message:index" }
 
+message_addConversation:
+    pattern:  /{id}/add_conversation
+    defaults: { _controller: "ProjetUserBundle:Conversation:new" }
+
+message_createConversation:
+    pattern:  /{id}/create_conversation
+    defaults: { _controller: "ProjetUserBundle:Conversation:create" }
+
 message_show:
     pattern:  /{id}/show
     defaults: { _controller: "ProjetUserBundle:Message:show" }

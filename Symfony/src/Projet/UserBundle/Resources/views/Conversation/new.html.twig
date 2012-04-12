@@ -1,6 +1,6 @@
 
 
-<form class="form-action" action="{{ path('conversation_create') }}" method="post" {{ form_enctype(form) }}>
+<form class="form-action" action="{{ path('message_createConversation', { 'id': entity.id}) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button class="btn btn-success" type="submit">Répondre</button>

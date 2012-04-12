@@ -9,8 +9,13 @@
 <div class="alert alert-danger"><h1>Objet : {{ entity.sujet }}</h1></div>
 
 
-<div class="span4 alert alert-danger">
+{% if entity.user == app.user %}
+		<div class="span4 alert alert-danger">
 			<div class="btn alert-info">moi :</div> 
+	{% else %}
+		<div class="span4 pull-right alert alert-success">
+			<div class="btn alert-info">{{ entity.user }} :</div> 
+	{% endif %}
 				<p>{{ entity.message }}</p>
 				<div class="pull-right alert-info">{{ entity.createdat|date('Y-m-d H:i:s') }}</div>
 </div>
@@ -19,16 +24,15 @@
 	{% if c.user == app.user %}
 		<div class="span4 alert alert-danger">
 			<div class="btn alert-info">moi :</div> 
+	{% else %}
+		<div class="span4 pull-right alert alert-success">
+			<div class="btn alert-info">{{ c.user }} :</div> 
+	{% endif %}
+			
 				<p>{{ c.msg }}</p>
 				<div class="pull-right alert-info">{{ c.createdat|date('Y-m-d H:i:s') }}</div>
 		</div>
-	{% else %}
-    	<div class="span4 pull-right alert alert-success">
-    		<div class="btn alert-info">{{ c.user }} :</div> 
-    			<p>{{ c.msg }}</p>
-    			<div class="pull-right alert-info">{{ c.createdat|date('Y-m-d H:i:s') }}</div>
-    	</div>
-	{% endif %}
+
 {% endfor %}
 
 <div class="span4" id="newComment">
