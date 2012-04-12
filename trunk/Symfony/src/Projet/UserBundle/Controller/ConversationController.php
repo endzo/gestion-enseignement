@@ -55,14 +55,17 @@ class ConversationController extends Controller
      * Displays a form to create a new Conversation entity.
      *
      */
-    public function newAction()
+    public function newAction($id)
     {
+    	
+    	
         $entity = new Conversation();
         $form   = $this->createForm(new ConversationType(), $entity);
 
         return $this->render('ProjetUserBundle:Conversation:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'id'     => $id
         ));
     }
 
@@ -70,7 +73,7 @@ class ConversationController extends Controller
      * Creates a new Conversation entity.
      *
      */
-    public function createAction()
+    public function createAction($id)
     {
         $entity  = new Conversation();
         $request = $this->getRequest();
@@ -78,17 +81,27 @@ class ConversationController extends Controller
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+        	
+        	$em = $this->getDoctrine()->getEntityManager();
+        	$message = $em->getRepository('ProjetUserBundle:Message')->find($id);
+        	if (!$message) { throw $this->createNotFoundException('Unable to find message entity.'); }        	
+        	$entity->setMessage($message);
+        	
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	$entity->setUser($user);
+        	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('conversation_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('message_show', array('id' => $id)));
             
         }
 
-        return $this->render('ProjetUserBundle:Conversation:new.html.twig', array(
+        return $this->render('ProjetUserBundle:Message:show.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'id'     => $id
         ));
     }
 
