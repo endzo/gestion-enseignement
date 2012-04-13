@@ -99,7 +99,7 @@ class DocumentController extends Controller
             
             
              //Envois d'un mail avec le swift mailer
-            $message = \Swift_Message::newInstance()
+            /*$message = \Swift_Message::newInstance()
             ->setSubject('Hello Email')
             ->setFrom('send@example.com')
             ->setTo('amine.hallili@gmail.com')
@@ -110,7 +110,7 @@ class DocumentController extends Controller
             	'text/html'
             );
             
-            $this->get('mailer')->send($message);
+            $this->get('mailer')->send($message);*/
 
             return $this->redirect($this->generateUrl('document_show', array('id' => $entity->getId())));
             

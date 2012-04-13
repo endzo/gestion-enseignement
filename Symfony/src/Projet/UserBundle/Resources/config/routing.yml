@@ -1,3 +1,11 @@
+messages_envoyer:
+    pattern:  /mes_messages_envoyer
+    defaults: { _controller: "ProjetUserBundle:Message:indexEnvoyer" }
+
+messages_recu:
+    pattern:  /mes_messages_recu
+    defaults: { _controller: "ProjetUserBundle:Message:indexRecu" }
+
 user_messages:
     pattern:  /mes_messages
     defaults: { _controller: "ProjetUserBundle:Message:index" }

@@ -17,6 +17,26 @@ class User extends BaseUser
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Boite", mappedBy="user")
+	 */
+	private $boites;
+	
+	public function getBoites()
+	{
+		return $this->boites;
+	}
+	
+	public function addBoite(\Projet\UserBundle\Entity\Boite $boite)
+	{
+		$this->boites[] = $boite;
+		$boite->setUser($this);
+	}
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Conversation", mappedBy="user")
 	 */
 	private $conversations;

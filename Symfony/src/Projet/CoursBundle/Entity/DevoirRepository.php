@@ -12,4 +12,54 @@ use Doctrine\ORM\EntityRepository;
  */
 class DevoirRepository extends EntityRepository
 {
+	
+	public function findDevoirType($id,$type)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('d')
+		->from('ProjetCoursBundle:Devoir', 'd')
+		->where('d.enseignement = :id')
+		->setParameter('id', $id)
+		->join('d.type', 't')
+		->andWhere('t.nom = :type')
+		->setParameter('type', $type)
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	public function findDevoirTypeAutre($id)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('d')
+		->from('ProjetCoursBundle:Devoir', 'd')
+		->where('d.enseignement = :id')
+		->setParameter('id', $id)
+		->join('d.type', 't')
+		->addSelect('t')
+		->andWhere('t.nom <> :type')
+		->setParameter('type', 'TP')
+		->andWhere('t.nom <> :type1')
+		->setParameter('type1', 'TD')
+		->andWhere('t.nom <> :type2')
+		->setParameter('type2', 'Projet')
+		->andWhere('t.nom <> :type3')
+		->setParameter('type3', 'Exercice')
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
 }

@@ -1,10 +1,13 @@
 
 		<ul class="nav nav-pills nav-stacked">
-			{#<li><a href="{{ path('sujet')             }}">Accueil du Forum  </a></li>
+			{#<li><a href="{{ path('sujet')           }}">Accueil du Forum  </a></li>
 			<li><a href="{{ path('sujet_new')         }}">Ajouter un Sujet  </a></li>#}
-			<li><a href="{{ path('enseignement')      }}">Accueil des Cours </a></li>
-			<li><a href="{{ path('enseignement_new')  }}">Ajouter un Cours  </a></li>
+			{#<li><a href="{{ path('enseignement_new')  }}">Ajouter un Cours  </a></li>#}
+			<li><a href="{{ path('enseignement')      }}">Tous les Cours </a></li>
 			<li><a href="{{ path('user_messages')     }}">Mes Messages      </a></li>
+			<li><a href="{{ path('message_new')       }}">Nouveau Message   </a></li>
+			<li><a href="{{ path('messages_recu')     }}">Messages Reçu   </a></li>
+			<li><a href="{{ path('messages_envoyer')  }}">Messages Envoyés   </a></li>
 		</ul>
 
 	

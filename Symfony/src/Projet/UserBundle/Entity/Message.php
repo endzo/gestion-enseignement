@@ -14,6 +14,26 @@ class Message
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Boite", mappedBy="message")
+	 */
+	private $boites;
+	
+	public function getBoites()
+	{
+		return $this->boites;
+	}
+	
+	public function addBoite(\Projet\UserBundle\Entity\Boite $boite)
+	{
+		$this->boites[] = $boite;
+		$boite->setMessage($this);
+	}
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Conversation", mappedBy="message")
 	 */
 	private $conversations;

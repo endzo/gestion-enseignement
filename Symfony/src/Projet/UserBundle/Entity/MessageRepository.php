@@ -13,17 +13,72 @@ use Doctrine\ORM\EntityRepository;
 class MessageRepository extends EntityRepository
 {
 	
-	public function findUserMessages($id,$userName)
+	public function findBoiteReception($id)
 	{
+		
 		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
 		$qb = $this->_em->createQueryBuilder();
 	
 		$qb->select('m')
 		->from('ProjetUserBundle:Message', 'm')
-		->where('m.user = :id')
+		->join('m.boites', 'b')
+        ->addSelect('b')
+        ->where('b.user = :id')
+        ->setParameter('id', $id)
+		->andWhere('b.type_envoi = :recu')
+		->setParameter('recu', 'receiver')
+		;
+		
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	
+	
+	
+	public function findBoiteEnvoi($id)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('m')
+		->from('ProjetUserBundle:Message', 'm')
+		->join('m.boites', 'b')
+		->addSelect('b')
+		->where('b.user = :id')
 		->setParameter('id', $id)
-		->orWhere('m.destinataire = :userName')
-		->setParameter('userName', $userName);
+		->andWhere('b.type_envoi = :recu')
+		->setParameter('recu', 'sender')
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	
+	
+	
+	
+	public function findUserMessages($id)
+	{
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('m')
+			->from('ProjetUserBundle:Message', 'm')
+			->where('m.user = :id')
+			->setParameter('id', $id)
+			->join('m.boites', 'b')
+			->addSelect('b')
+			->andWhere('b.user = :id')
+			->setParameter('id', $id)
+			->andWhere($qb->expr()->in('b.type_envoi', array('sender','receiver')))
+		;
 	
 		return $qb->getQuery()
 		->getResult();

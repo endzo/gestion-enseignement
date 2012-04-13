@@ -2,6 +2,8 @@
 
 namespace Projet\UserBundle\Controller;
 
+use Projet\UserBundle\Entity\Boite;
+
 use Projet\UserBundle\Entity\Conversation;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,6 +17,52 @@ use Projet\UserBundle\Form\ConversationType;
  */
 class MessageController extends Controller
 {
+	
+	/**
+	 * Lists all Message entities.
+	 *
+	 */
+	public function indexEnvoyerAction()
+	{
+		// recuperation de l'utilisateur courant
+		$user = $this->container->get('security.context')->getToken()->getUser();
+	
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$entities = $em->getRepository('ProjetUserBundle:Message')->findBoiteEnvoi($user->getId());
+	
+		return $this->render('ProjetUserBundle:Message:index.html.twig', array(
+	'entities' => $entities
+	));
+	}
+	
+	
+	
+	/**
+	 * Lists all Message entities.
+	 *
+	 */
+	public function indexRecuAction()
+	{
+		// recuperation de l'utilisateur courant
+		$user = $this->container->get('security.context')->getToken()->getUser();
+	
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$entities = $em->getRepository('ProjetUserBundle:Message')->findBoiteReception($user->getId());
+	
+		return $this->render('ProjetUserBundle:Message:index.html.twig', array(
+	'entities' => $entities
+	));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * Lists all Message entities.
      *
@@ -26,8 +74,7 @@ class MessageController extends Controller
     	
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('ProjetUserBundle:Message')
-        				->findUserMessages($user->getId(),$user->getUsername());
+        $entities = $em->getRepository('ProjetUserBundle:Message')->findUserMessages($user->getId());
 
         return $this->render('ProjetUserBundle:Message:index.html.twig', array(
             'entities' => $entities
@@ -74,9 +121,29 @@ class MessageController extends Controller
 
         return $this->render('ProjetUserBundle:Message:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView()
+            'form'   => $form->createView(),
+            'username'=> 'destinataire'
         ));
     }
+    
+    
+    /**
+     * Displays a form to create a new Message entity already set for a User.
+     *
+     */
+    public function newToAction($username)
+    {
+    	  	
+    	$entity = new Message();
+    	$entity->setDestinataire($username);
+    	$form   = $this->createForm(new MessageType(), $entity);
+    
+    	return $this->render('ProjetUserBundle:Message:new.html.twig', array(
+		    'entity' => $entity,
+		    'form'   => $form->createView()
+		    ));
+    }
+    
 
     /**
      * Creates a new Message entity.
@@ -85,13 +152,37 @@ class MessageController extends Controller
     public function createAction()
     {
         $entity  = new Message();
+        
         $request = $this->getRequest();
         $form    = $this->createForm(new MessageType(), $entity);
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+        	
+        	$em = $this->getDoctrine()->getEntityManager();
+        	$destinataire = $em->getRepository('ProjetUserBundle:User')->findOneByUsername($entity->getDestinataire());
+        	if (!$destinataire) { throw $this->createNotFoundException('le destinataire n\'existe pas'); }
+        	
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	
+        	$boite = new Boite();
+        	$boite->setTypeEnvoi("sender");
+        	$boite->setUser($user);
+        	$boite->setMessage($entity);
+        	
+        	
+        	$boite1 = new Boite();
+        	$boite1->setTypeEnvoi("receiver");
+        	$boite1->setUser($destinataire);
+        	$boite1->setMessage($entity);
+        	
+        	$entity->setUser($user);
+        	
+        	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
+            $em->persist($boite);
+            $em->persist($boite1);
             $em->flush();
 
             return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));
