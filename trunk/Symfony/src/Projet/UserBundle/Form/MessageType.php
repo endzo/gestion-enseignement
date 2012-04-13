@@ -10,11 +10,11 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
+        	->add('destinataire')
             ->add('sujet')
             ->add('message')
-            ->add('destinataire')
             //->add('created_at')
-            ->add('user')
+            //->add('user')
         ;
     }
 

@@ -4,21 +4,18 @@ $(document).ready(function() {
 	   //listen for the form beeing submitted
 	   $("#myForm").submit(function(){
 	      //get the url for the form
-	      var url=$("#myForm").attr("action");
-	   
+	      //var url=$("#myForm").attr("action");
+	   		var url = {{ app.request.uri }};
 	      //start send the post request
-	       $.post(url,{
-	           formName:$("#nameid").val(),
-	           other:"attributes"
-	       },function(data){
+	       $.post(url,{formName:$("#nameid").val(), other:"attributes" },function(data){
 	           //the response is in the data variable
 	   
 	            if(data.response==200 ){           
-	                $('#output').html(data.greeting);
+	                $('#output').html(data.index);
 	                $('#output').css("color","red");
 	            }
 	           else if(data.response==400){//bad request
-	               $('#output').html(data.greeting);
+	               $('#output').html(data.index);
 	               $('#output').css("color","red");
 	          }
 	       
@@ -40,15 +37,15 @@ $(document).ready(function() {
 
 
 
-<h1>Employee list</h1>
+<h1>Employee list</h1>{{ app.request.uri }}
 <div id="content">
-  <form id="myForm" action="{{path('my_app_greeting', {'formName': 'myForm'})}}" method="POST" >
+  <form id="myForm" action="" method="POST" >
     Write your name here: 
     <input type="text" name="name" id="nameId" value="" /><br />
     <input type="submit" value="Send" />
   </form>
  </div>
- <div id="output"></div>
+ <div id="output">{{ name }}</div>
 </div>
 
 

@@ -15,20 +15,20 @@ use Projet\TestBundle\Form\EmployeeType;
 class EmployeeController extends Controller
 {
 	public function greetingAction(){
+		
+		$name ="pas de resultat";
 		$request = $this->get('request');
 		$name=$request->request->get('name');
+		
+		
+		$em = $this->getDoctrine()->getEntityManager();
+		$entities = $em->getRepository('ProjetTestBundle:Employee')->findAll();
 	
-		if($name!=""){
-			//if the user has written his name
-			$greeting='Hello '.$name.'. How are you today?';
-			$return=array("responseCode"=>200,  "greeting"=>$greeting);
-		}
-		else{
-			$return=array("responseCode"=>400, "You have to write your name!");
-		}
-	
-		$return=json_encode($return);//jscon encode the array
-		return new Response($return,200);
+
+		return $this->render('ProjetTestBundle:Employee:index.html.twig', array(
+            'entities' => $entities,
+            'name'     => $name
+        ));
 	}
 	
 	
@@ -40,12 +40,14 @@ class EmployeeController extends Controller
      */
     public function indexAction()
     {
+    	$name ="pas de resultat";
         $em = $this->getDoctrine()->getEntityManager();
 
         $entities = $em->getRepository('ProjetTestBundle:Employee')->findAll();
 
         return $this->render('ProjetTestBundle:Employee:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
+            'name'     => $name
         ));
     }
 

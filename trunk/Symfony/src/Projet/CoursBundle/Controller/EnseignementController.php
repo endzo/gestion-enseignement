@@ -83,12 +83,12 @@ class EnseignementController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Enseignement entity.');
         }
-        $devoirs   = $entity->getDevoirs();
-        $tps       = Devoir::getTps($devoirs);
-        $tds       = Devoir::getTds($devoirs);
-        $exercices = Devoir::getExercices($devoirs);
-        $projets   = Devoir::getProjets($devoirs);
-        $autres    = Devoir::getAutres($devoirs);
+
+        $tps       = $em->getRepository('ProjetCoursBundle:Devoir')->findDevoirType($entity->getId(), 'TP');
+        $tds       = $em->getRepository('ProjetCoursBundle:Devoir')->findDevoirType($entity->getId(), 'TD');
+        $exercices = $em->getRepository('ProjetCoursBundle:Devoir')->findDevoirType($entity->getId(), 'Exercice');
+        $projets   = $em->getRepository('ProjetCoursBundle:Devoir')->findDevoirType($entity->getId(), 'Projet');
+        $autres    = $em->getRepository('ProjetCoursBundle:Devoir')->findDevoirTypeAutre($entity->getId());
         $documents = $entity->getDocuments(); 
 
         $deleteForm = $this->createDeleteForm($id);
@@ -96,7 +96,6 @@ class EnseignementController extends Controller
         return $this->render('ProjetCoursBundle:Enseignement:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-            'devoirs'	  => $devoirs,
             'tps'	      => $tps,
             'tds'	      => $tds,
             'exercices'	  => $exercices,
