@@ -97,11 +97,18 @@ class Message
     private $message;
     
     /**
-     * @var string $sujet
+     * @var string $destinataire
      *
      * @ORM\Column(name="destinataire", type="string", length=60)
      */
     private $destinataire;
+    
+    /**
+     * @var boolean $vu
+     *
+     * @ORM\Column(name="vu", type="boolean")
+     */
+    private $vu;
 
     /**
      * @var datetime $created_at
@@ -193,6 +200,26 @@ class Message
     public function getMessage()
     {
         return $this->message;
+    }
+    
+    /**
+     * Set vu
+     *
+     * @param boolean $vu
+     */
+    public function setVu($vu)
+    {
+    	$this->vu = $vu;
+    }
+    
+    /**
+     * Get vu
+     *
+     * @return boolean
+     */
+    public function getVu()
+    {
+    	return $this->vu;
     }
 
     /**

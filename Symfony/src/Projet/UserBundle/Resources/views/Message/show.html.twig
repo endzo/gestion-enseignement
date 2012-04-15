@@ -5,7 +5,30 @@
 {% endblock %}
 
 {% block fos_user_content %}
+<script type="text/javascript">
+$(document).ready(function(){
 
+	function timer()
+	{
+		var dt=new Date();	
+		
+		alert({{ path('message_show', { 'id': '6' }) }});
+	    var id = 1;
+	    $.ajax({
+	      url: '{{ path('message_show', { 'id': entity.id }) }}',
+	      type: 'GET',
+	      data: {'id': id},
+	      dataType: 'json',
+	      success: function(data) {
+	        $('#conversation').append(dt.getSeconds());
+	      }
+	    });
+	    setTimeout(timer, 1000);
+	}
+  	timer();
+
+});
+</script>
 <div class="alert alert-danger"><h1>Objet : {{ entity.sujet }}</h1></div>
 <div class="alert alert-warning"><h3>Avec  : {{ entity.destinataire }}</h3></div>
 
@@ -21,6 +44,8 @@
 				<div class="pull-right alert-info">{{ entity.createdat|date('Y-m-d H:i:s') }}</div>
 </div>
 
+
+<div id="conversation">
 {% for c in conversations %}
 	{% if c.user == app.user %}
 		<div class="span4 alert alert-danger">
@@ -35,6 +60,9 @@
 		</div>
 
 {% endfor %}
+</div>
+
+
 
 <div class="span4" id="newComment">
 	{% include "ProjetUserBundle:Conversation:new.html.twig" %}

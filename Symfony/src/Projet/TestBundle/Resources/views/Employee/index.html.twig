@@ -1,6 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+
+	$('#conversation').html('3');
 	   //listen for the form beeing submitted
 	   $("#myForm").submit(function(){
 	      //get the url for the form
@@ -24,6 +26,30 @@ $(document).ready(function() {
 	      //we dont what the browser to submit the form
 	      return false;
 	   });
+
+
+
+	   function timer()
+		{
+			var dt=new Date();	
+			
+			
+			//alert(dt.getSeconds());
+			if(dt.getSeconds() == 30 || dt.getSeconds() == 11 || dt.getSeconds() == 13 || dt.getSeconds() == 14 || dt.getSeconds() == 2)
+			{
+				$('#alertnotif').fadeTo("slow", 1);
+				$('#alertnbr').html('3');
+				$('#alertnbr').addClass('nbr');
+				$('#alertnbr').effect("bounce", { times:3 }, 300);
+			}	
+
+			alert('test');
+				
+			
+			
+			setTimeout(timer, 2000);
+		}
+	  	timer();
 
 
 	});

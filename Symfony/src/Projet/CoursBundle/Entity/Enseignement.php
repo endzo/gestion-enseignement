@@ -14,6 +14,27 @@ class Enseignement
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Notification", mappedBy="enseignement")
+	 */
+	private $notifications;
+	
+	public function getNotifications()
+	{
+		return $this->notifications;
+	}
+	
+	public function addNotification(\Projet\CoursBundle\Entity\Notification $notification)
+	{
+		$this->notifications[] = $notification;
+		$notification->setEnseignement($this);
+	}
+	
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\Enseignant", inversedBy="enseignements")
 	 */
 	private $enseignant;

@@ -1,5 +1,30 @@
 $(document).ready(function(){
-
+	
+	$('#destinataire').keyup(function(key)
+			  {
+			    if (this.value.length >= 3 || this.value == '')
+			    {
+			      $('#loader').show();
+			      $('#jobs').load(
+			        $(this).parents('form').attr('action'),
+			        { query: this.value + '*' },
+			        function() { $('#loader').hide(); }
+			      );
+			    }
+			  });
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	var alert = 1;
     /*$('#notif-box').hide();*/
 	$('#notifcontent').hide();
@@ -71,8 +96,8 @@ $(document).ready(function(){
 			$('#alertnbr').effect("bounce", { times:3 }, 300);
 		}	
 			
-		$('#alertcontent').load("alert.php");
-		setTimeout(timer, 2000);
+		$('#conversation').load('index.html.twig');
+		setTimeout(timer, 1000);
 	}
   	timer();
 
