@@ -72,9 +72,28 @@ class MessageController extends Controller
     	// recuperation de l'utilisateur courant
     	$user = $this->container->get('security.context')->getToken()->getUser();
     	
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entities = $em->getRepository('ProjetUserBundle:Message')->findUserMessages($user->getId());
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	$entities = $em->getRepository('ProjetUserBundle:Message')->findUserMessages($user->getId());
+    	
+    	
+    	
+    	
+    	if($request->isXmlHttpRequest()) {
+    		die ('test javascript');
+    		$request = $this->getRequest();
+    		$id = $request->get('id');
+    		
+    		$json = json_encode(array(
+    			'entities' => $entities
+    		));
+    	
+    		$response = new Response();
+    		$response->headers->set('Content-Type', 'application/json');
+    		$response->setContent($json);
+    		return $response;
+    	}
+    	
 
         return $this->render('ProjetUserBundle:Message:index.html.twig', array(
             'entities' => $entities
