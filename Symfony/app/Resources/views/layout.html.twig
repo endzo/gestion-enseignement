@@ -28,9 +28,14 @@
 			</div>
 		</div>
 		
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		<ul id="news-box" class="navbar navbar-fixed-top notif-content pull-left">
+			{% include "ProjetCoursBundle:Notification:index.html.twig" %}
+		</ul>
+		{% endif %}
 		
 		<div id="notif-box" class="notif-content pull-right">
-			<div id="alerte-content" class=""><h2>Alertes</h2><br>
+			<div id="alerte-content" class="">
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
@@ -52,15 +57,15 @@
 			</div>
 
 			<div class="row">
-				<div id="menu" class="span3">
+				<!-- <div id="menu" class="span3">
 					{% block menu %}
 			 			<h3>Menu</h3>
 			 			{% include "::menu.html.twig" %}
 					{% endblock %}					
-				</div>
+				</div> -->
 				
 				
-				<div id="content" class="span9">
+				<div id="content" class="right-marge">
 					{% block body %}
 					{% endblock %}
 				</div>

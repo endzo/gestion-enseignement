@@ -5,6 +5,7 @@ namespace Projet\ForumBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\ForumBundle\Entity\Comment;
+use Projet\CoursBundle\Entity\Notification;
 use Projet\ForumBundle\Form\CommentType;
 
 /**
@@ -85,9 +86,26 @@ class CommentController extends Controller
         	if (!$sujet) { throw $this->createNotFoundException('Unable to find Sujet entity.'); }
         	$sujet->addCommentaire($entity);
         	
+        	$notif = new Notification();
+        	$cours = $sujet->getEnseignement();
+        	$notif->setEnseignement($cours);
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	$notif->setNom(
+        			$user->getUsername().
+        			' a commenté le sujet : '.
+        			'<a href="{{ path(\'sujet_show\', { \'id\': '.$sujet->getId().' }) }}">'.
+        			$sujet->getNom().
+        			'</a> du cours : '.
+        			'<a href="{{ path(\'enseignement_show\', { \'id\': '.$cours->getId().' }) }}">'.
+        			$cours->getNom().
+        			'</a>'
+        	);
+        	
+        	
             $em = $this->getDoctrine()->getEntityManager();
             //$entity->setCommentaire(md5($entity->getCommentaire()));
             $em->persist($entity);
+            $em->persist($notif);
             $em->flush();
 
             return $this->redirect($this->generateUrl('sujet_show', array('id' => $id)));

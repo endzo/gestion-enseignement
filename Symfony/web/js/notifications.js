@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	setInterval(chargerNews,5000);
 	
 	$('#destinataire').keyup(function(key)
 			  {
@@ -12,17 +13,6 @@ $(document).ready(function(){
 			      );
 			    }
 			  });
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	var alert = 1;
@@ -102,3 +92,34 @@ $(document).ready(function(){
   	timer();
 
 });
+
+
+var dernier_id;
+function setId(id){
+    dernier_id = id;
+}
+
+function chargerNews(){
+	
+    jQuery.ajax({
+        url: 'http://localhost/ProjetAnnee/web/app_dev.php/notification/'+dernier_id+'/last',
+        success: function(data){
+            if(data!=''){
+            	//alert(data);
+            	if(!dernier_id)
+            		$('#news-box').html(data);
+            	else
+            		{
+            			
+	            		$(data).prependTo('#news-box').hide().animate({'height':'toggle','opacity':'toggle'},2000);
+	                    
+	                    $('#news-box li:last-child').animate({'height':'toggle','opacity':'toggle'},2000,function(){
+	                        $(this).remove();
+	                    });
+            		}
+                
+                
+            }
+        }
+    });
+}

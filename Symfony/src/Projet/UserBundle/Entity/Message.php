@@ -103,12 +103,6 @@ class Message
      */
     private $destinataire;
     
-    /**
-     * @var boolean $vu
-     *
-     * @ORM\Column(name="vu", type="boolean")
-     */
-    private $vu;
 
     /**
      * @var datetime $created_at
