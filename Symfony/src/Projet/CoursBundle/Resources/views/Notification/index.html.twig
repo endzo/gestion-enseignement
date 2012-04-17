@@ -1,4 +1,4 @@
-{% if news is defined %}
+<body>{% if news is defined %}
 	{% set first = 1 %}
     {% for new in news %}
     	{% if app.user != new.user %}	
@@ -16,3 +16,4 @@
         {% endif %}
     {% endfor %}
 {% endif %}
+</body>
