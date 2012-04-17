@@ -1,0 +1,34 @@
+notification_last:
+    pattern:  /{id}/last
+    defaults: { _controller: "ProjetCoursBundle:Notification:index" }
+
+notification:
+    pattern:  /
+    defaults: { _controller: "ProjetCoursBundle:Notification:index" }
+
+notification_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetCoursBundle:Notification:show" }
+
+notification_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetCoursBundle:Notification:new" }
+
+notification_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetCoursBundle:Notification:create" }
+    requirements: { _method: post }
+
+notification_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetCoursBundle:Notification:edit" }
+
+notification_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetCoursBundle:Notification:update" }
+    requirements: { _method: post }
+
+notification_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetCoursBundle:Notification:delete" }
+    requirements: { _method: post }

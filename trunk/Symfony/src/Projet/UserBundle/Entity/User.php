@@ -17,6 +17,27 @@ class User extends BaseUser
 {
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Notification", mappedBy="user")
+	 */
+	private $notifications;
+	
+	public function getNotifications()
+	{
+		return $this->notifications;
+	}
+	
+	public function addNotification(\Projet\CoursBundle\Entity\Notification $notification)
+	{
+		$this->notifications[] = $notification;
+		$notification->setUser($this);
+	}
+	
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Boite", mappedBy="user")
 	 */
 	private $boites;

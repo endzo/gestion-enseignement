@@ -2,6 +2,8 @@
 
 namespace Projet\ForumBundle\Controller;
 
+use Projet\CoursBundle\Entity\Notification;
+
 use Symfony\Component\Validator\Constraints\Collection;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,13 +39,9 @@ class SujetController extends Controller
 		}
 		
 		
-		//$entities = array();
 		foreach ($courss as $cours) {
 			$sujets = $cours->getSujets();
-			//die(var_dump($sujets));
-			//$entities = $sujets;
 			foreach ($sujets as $sujet) {
-				//die(var_dump($sujet));
 				$entities[] = $sujet;
 			}
 			
@@ -150,8 +148,25 @@ class SujetController extends Controller
         	$cours = $em->getRepository('ProjetCoursBundle:enseignement')->find($id);
         	$cours->addSujet($entity);
         	
+        	$notif = new Notification();
+        	$notif->setEnseignement($cours);
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	$notif->setNom(
+        			$user->getUsername().
+        			" a créé un nouveau sujet : ".
+        			'<a href="{{ path(\'sujet_show\', { \'id\': '.$entity->getId().' }) }}">'.
+        			$entity->getNom().
+        			' dans le forum du cours : '.
+        			'<a href="{{ path(\'enseignement_show\', { \'id\': '.$cours->getId().' }) }}">'.
+        			$cours->getNom().
+        			'</a>'
+        	);
+        	
+        	
+        	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
+            $em->persist($notif);
             $em->flush();
 
             return $this->redirect($this->generateUrl('sujet_show', array('id' => $entity->getId())));

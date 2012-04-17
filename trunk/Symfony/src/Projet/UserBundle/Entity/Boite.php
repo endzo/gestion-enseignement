@@ -63,6 +63,13 @@ class Boite
      * @ORM\Column(name="type_envoi", type="string", length=40)
      */
     private $type_envoi;
+    
+    /**
+     * @var boolean $vu
+     *
+     * @ORM\Column(name="vu", type="boolean")
+     */
+    private $vu;
 
     /**
      * @var datetime $created_at
@@ -114,6 +121,26 @@ class Boite
     public function getTypeEnvoi()
     {
         return $this->type_envoi;
+    }
+    
+    /**
+     * Set vu
+     *
+     * @param boolean $vu
+     */
+    public function setVu($vu)
+    {
+    	$this->vu = $vu;
+    }
+    
+    /**
+     * Get vu
+     *
+     * @return boolean
+     */
+    public function getVu()
+    {
+    	return $this->vu;
     }
 
     /**

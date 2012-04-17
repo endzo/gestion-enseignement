@@ -12,6 +12,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Notification
 {
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\User", inversedBy="notifications")
+	 */
+	private $user;
+	
+	public function getUser()
+	{
+		return $this->user;
+	}
+	
+	public function setUser(\Projet\UserBundle\Entity\User $user)
+	{
+		$this->user = $user;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\CoursBundle\Entity\Enseignement", inversedBy="notifications")
 	 */
@@ -56,6 +76,22 @@ class Notification
     private $created_at;
 
 
+    
+    
+    // constructeur
+    public function __construct()
+    {
+    	$this->created_at = new \DateTime('now');
+    }
+    
+    // toString méthode
+    public function __toString() {
+    	return $this->nom;
+    }
+    
+    
+    
+    
     /**
      * Get id
      *

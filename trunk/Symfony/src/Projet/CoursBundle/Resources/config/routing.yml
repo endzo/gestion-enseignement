@@ -29,3 +29,7 @@ Devoir:
 Document:
     resource:  "@ProjetCoursBundle/Resources/config/routing/document.yml"
     prefix:    /document
+
+Notification:
+    resource:  "@ProjetCoursBundle/Resources/config/routing/notification.yml"
+    prefix:    /notification
