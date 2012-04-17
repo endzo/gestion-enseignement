@@ -29,8 +29,14 @@ class NotificationController extends Controller
         
         if($id != null && $id != 0 && $id != 'undefined')
         {
-
-        	$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantNotifications($id,$user->getId());
+        	
+        	if( $this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+        	{
+        		$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEnseignantNotifications($id,$user->getId());
+        	}
+        		
+        	else 
+        		$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantNotifications($id,$user->getId());
         	
         	return $this->render('ProjetCoursBundle:Notification:index.html.twig', array(
         	'news' => $entities,
@@ -38,7 +44,12 @@ class NotificationController extends Controller
         	));
         }
 
-        $entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantFilActualite($user->getId());
+        if( $this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+        {
+        	$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEnseignantFilActualite($user->getId());
+        }
+        else 
+        	$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantFilActualite($user->getId());
 
         return $this->render('ProjetCoursBundle:Notification:index.html.twig', array(
             'news' => $entities,
