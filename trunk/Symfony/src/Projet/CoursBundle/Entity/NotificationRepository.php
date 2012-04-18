@@ -77,7 +77,7 @@ class NotificationRepository extends EntityRepository
 		->setParameter('1', $id)
 		->join('n.enseignement', 'e')
 		->join('e.enseignant', 'ens')
-		->andWhere("ens.id = ?1")
+		->andWhere("ens.id = ?2")
 		->setParameter('2', $user_id)
 		->addOrderBy('n.id','DESC')
 		->setMaxResults(1)

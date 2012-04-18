@@ -105,21 +105,37 @@ function chargerNews(){
         url: 'http://localhost/ProjetAnnee/web/app_dev.php/notification/'+dernier_id+'/last',
         success: function(data){
             if(data!=''){
-            	//alert(data);
+            	
             	if(!dernier_id)
-            		$('#news-box').html(data);
+            		{
+            			$('#news-box').html(data);
+            			
+	            		if($('#news-box').children().size() == 0)
+	            		{
+	            			$('#news-box').html("<br><br><br>Aucune actualité pour le moment !");
+	            		}	
+            		}
             	else
             		{
-            			
 	            		$(data).prependTo('#news-box').hide().animate({'height':'toggle','opacity':'toggle'},2000);
-	                    
-	                    $('#news-box li:last-child').animate({'height':'toggle','opacity':'toggle'},2000,function(){
-	                        $(this).remove();
-	                    });
+	                    	
+	                    if($('#news-box').children().size() > 6 )
+	                    	{
+	                    		$('#news-box li:last-child').animate({'height':'toggle','opacity':'toggle'},2000,function()
+	                    				{
+	                    					$(this).remove();
+	                    				});
+	                    	}
+	            		
             		}
                 
                 
             }
+            else
+            	if($('#news-box').children().size() == 0)
+        		{
+        			$('#news-box').html("<br><br><br>Aucune actualité pour le moment !");
+        		}	
         }
     });
 }

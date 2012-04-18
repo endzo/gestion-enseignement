@@ -14,6 +14,8 @@ class UserType extends AbstractType
             ->add('password')
             //->add('usernameCanonical')
             ->add('email')
+            ->add('nom')
+            ->add('prenom')
             //->add('emailCanonical')
             //->add('enabled')
             //->add('salt')
