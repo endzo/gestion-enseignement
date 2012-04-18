@@ -14,6 +14,26 @@ class Comment
 {
 	
 	/**
+	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\User", inversedBy="commentaires")
+	 */
+	private $user;
+	
+	public function getUser()
+	{
+		return $this->user;
+	}
+	
+	public function setUser(\Projet\UserBundle\Entity\User $user)
+	{
+		$this->user = $user;
+	}
+	
+	
+	
+	
+	
+	
+	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\ForumBundle\Entity\Sujet", inversedBy="commentaires")
 	 */
 	private $sujet;

@@ -1,4 +1,4 @@
-<body>{% if news is defined %}
+{% if news is defined %}
 	{% set first = 1 %}
     {% for new in news %}
     	{% if app.user != new.user %}	
@@ -6,14 +6,11 @@
         <li class="alert alert-success">
             {{ new.nom|raw }}
             {% if first == 1 %}
-            {% set test = new.id %}
             	<script>setId('{{ new.id }}');</script>
             	{% set first = 2 %}
-			{% endif %}  
-      
+			{% endif %}        
         </li>
         
         {% endif %}
     {% endfor %}
 {% endif %}
-</body>

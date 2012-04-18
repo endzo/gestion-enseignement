@@ -148,21 +148,26 @@ class SujetController extends Controller
         	$cours = $em->getRepository('ProjetCoursBundle:enseignement')->find($id);
         	$cours->addSujet($entity);
         	
+        	$router = $this->get('router');
+        	$uri_sujet = $router->generate('sujet_show'       , array('id' => $entity->getId()));
+        	$uri_cours = $router->generate('enseignement_show', array('id' => $cours->getId()));
+        	
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	
         	$notif = new Notification();
         	$notif->setEnseignement($cours);
-        	$user = $this->container->get('security.context')->getToken()->getUser();
         	$notif->setNom(
         			$user->getUsername().
         			" a créé un nouveau sujet : ".
-        			'<a href="{{ path(\'sujet_show\', { \'id\': '.$entity->getId().' }) }}">'.
-        			$entity->getNom().
+        			'<a href="'.$uri_sujet.'">'.
+        			$entity->getNom().'</a>'.
         			' dans le forum du cours : '.
-        			'<a href="{{ path(\'enseignement_show\', { \'id\': '.$cours->getId().' }) }}">'.
+        			'<a href="'.$uri_cours.'">'.
         			$cours->getNom().
         			'</a>'
         	);
-        	
-        	
+        	$notif->setUser($user);
+
         	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);

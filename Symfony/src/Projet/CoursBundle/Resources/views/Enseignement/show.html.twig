@@ -4,6 +4,12 @@
 	Accueil - {{ parent() }}
 {% endblock %}
 
+
+{% block titre_cours %}
+		 	<h1>Cours : {{ entity.nom }}</h1>
+{% endblock %}
+
+
 {% block Enseignement_body %}
 	{# <b> {{ entity.title }} </b> est cr&eacute;&eacute; par : <b> {{ user.login }} </b> #}
 	

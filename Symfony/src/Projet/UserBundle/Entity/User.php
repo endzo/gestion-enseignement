@@ -15,6 +15,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+	/**
+	 * @ORM\OneToMany(targetEntity="Projet\ForumBundle\Entity\Comment", mappedBy="user")
+	 */
+	private $commentaires;
+	
+	public function getCommentaires()
+	{
+		return $this->commentaires;
+	}
+	
+	public function addCommentaire(\Projet\ForumBundle\Entity\Comment $commentaire)
+	{
+		$this->commentaires[] = $commentaire;
+		$commentaire->setUser($this);
+	}
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Notification", mappedBy="user")
