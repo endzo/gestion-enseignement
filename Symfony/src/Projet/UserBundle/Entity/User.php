@@ -33,10 +33,6 @@ class User extends BaseUser
 	
 	
 	
-	
-	
-	
-	
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Notification", mappedBy="user")
 	 */
@@ -54,10 +50,7 @@ class User extends BaseUser
 	}
 	
 	
-	
-	
-	
-	
+		
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Boite", mappedBy="user")
 	 */
@@ -76,8 +69,6 @@ class User extends BaseUser
 	
 	
 	
-	
-	
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\UserBundle\Entity\Conversation", mappedBy="user")
 	 */
@@ -93,8 +84,6 @@ class User extends BaseUser
 		$this->conversations[] = $conversation;
 		$conversation->setMessage($this);
 	}
-	
-	
 	
 	
 	
@@ -127,9 +116,70 @@ class User extends BaseUser
     /**
      * @return datetime
      */
-    /*
-    public function getExpiresAt()
+    
+    
+    
+    /**
+     * @var string $nom
+     *
+     * @ORM\Column(name="nom", type="string", length=60)
+     */
+    private $nom;
+    
+    
+    /**
+     * @var string $prenom
+     *
+     * @ORM\Column(name="prenom", type="string", length=60)
+     */
+    private $prenom;
+    
+    
+    
+    
+    
+    /**
+     * Set sujet
+     *
+     * @param string $sujet
+     */
+    public function setNom($nom)
     {
-    	return $this->expiresAt;
-    }*/
+    	$this->nom = $nom;
+    }
+    
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+    	return $this->nom;
+    }
+    
+    
+    
+    
+    
+    
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     */
+    public function setPrenom($prenom)
+    {
+    	$this->prenom = $prenom;
+    }
+    
+    /**
+     * Get prenom
+     *
+     * @return string
+     */
+    public function getPrenom()
+    {
+    	return $this->prenom;
+    }
 }

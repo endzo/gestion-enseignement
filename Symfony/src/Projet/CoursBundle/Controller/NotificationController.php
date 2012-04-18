@@ -39,8 +39,7 @@ class NotificationController extends Controller
         		$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantNotifications($id,$user->getId());
         	
         	return $this->render('ProjetCoursBundle:Notification:index.html.twig', array(
-        	'news' => $entities,
-            'idjs' => $id
+        	'news' => $entities
         	));
         }
 
@@ -52,8 +51,7 @@ class NotificationController extends Controller
         	$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantFilActualite($user->getId());
 
         return $this->render('ProjetCoursBundle:Notification:index.html.twig', array(
-            'news' => $entities,
-            'idjs' => $id
+            'news' => $entities
         ));
     }
 
