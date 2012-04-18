@@ -7,6 +7,8 @@ use Projet\CoursBundle\Entity\Devoir;
 use Projet\CoursBundle\Entity\Document;
 use Projet\CoursBundle\Form\DocumentType;
 
+use Projet\CoursBundle\Entity\Notification;
+
 use Projet\UserBundle\Entity\Etudiant;
 use Projet\UserBundle\Entity\Promotion;
 
@@ -133,8 +135,27 @@ class EnseignementController extends Controller
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+        	
+        	
+        	$router = $this->get('router');
+        	$uri_cours = $router->generate('enseignement_show', array('id' => $entity->getId()));
+        	
+        	$user = $this->container->get('security.context')->getToken()->getUser();
+        	
+        	$notif = new Notification();
+        	$notif->setEnseignement($entity);
+        	$notif->setNom(
+        		'Vous êtes attribué à un nouveau cours : '.
+        		'<a href="'.$uri_cours.'">'.$entity->getNom().'</a>'
+        	);
+        	$notif->setUser($user);
+        	
+        	$entity->setEnseignant($user);
+        	
+        	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
+            $em->persist($notif);
             $em->flush();
 
             return $this->redirect($this->generateUrl('enseignement_show', array('id' => $entity->getId())));

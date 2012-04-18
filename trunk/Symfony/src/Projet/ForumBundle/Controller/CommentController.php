@@ -90,17 +90,25 @@ class CommentController extends Controller
         	$cours = $sujet->getEnseignement();
         	$notif->setEnseignement($cours);
         	$user = $this->container->get('security.context')->getToken()->getUser();
+        	
+        	
+        	$router = $this->get('router');
+        	$uri_sujet = $router->generate('sujet_show'       , array('id' => $sujet->getId()));
+        	$uri_cours = $router->generate('enseignement_show', array('id' => $cours->getId()));
+        	
         	$notif->setNom(
         			$user->getUsername().
         			' a commenté le sujet : '.
-        			'<a href="{{ path(\'sujet_show\', { \'id\': '.$sujet->getId().' }) }}">'.
+        			'<a href="'.$uri_sujet.'">'.
         			$sujet->getNom().
         			'</a> du cours : '.
-        			'<a href="{{ path(\'enseignement_show\', { \'id\': '.$cours->getId().' }) }}">'.
+        			'<a href="'.$uri_cours.'">'.
         			$cours->getNom().
         			'</a>'
         	);
+        	$notif->setUser($user);
         	
+        	$entity->setUser($user);
         	
             $em = $this->getDoctrine()->getEntityManager();
             //$entity->setCommentaire(md5($entity->getCommentaire()));

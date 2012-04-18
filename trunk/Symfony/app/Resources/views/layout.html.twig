@@ -28,27 +28,21 @@
 			</div>
 		</div>
 		
+		
+		<table>
+		<tr>
+		
+		<td class="v-top">
+		
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<ul id="news-box" class="navbar navbar-fixed-top notif-content pull-left">
+		<ul id="news-box" class="notif-content pull-left">
 			{% include "ProjetCoursBundle:Notification:index.html.twig" %}
 		</ul>
 		{% endif %}
 		
-		<div id="notif-box" class="notif-content pull-right">
-			<div id="alerte-content" class="">
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-			</div>
-		</div>
+		</td>	
 		
-		
-		
+		<td>
 		
 		<div class="container">
 			<div id="header" class="hero-unit">
@@ -70,6 +64,29 @@
 					{% endblock %}
 				</div>
 			</div>
+			</td>
+			
+			
+		<td id=alerte-cell class="v-top">
+		
+		<div id="notif-box" class="notif-content pull-right">
+			<div id="alerte-content" class="">
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
+				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+			</div>
+		</div>
+		
+		</td>
+			
+			
+			</tr>
+			</table>
 
 			<hr>
 
