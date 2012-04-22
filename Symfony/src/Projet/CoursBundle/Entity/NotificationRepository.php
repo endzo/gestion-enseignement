@@ -28,6 +28,7 @@ class NotificationRepository extends EntityRepository
         ->join('p.etudiants','u')
         ->andWhere("u.id = ?2")
         ->setParameter('2', $user_id)
+        ->andWhere('n.user != ?2')
 		->addOrderBy('n.id','DESC')
 		->setMaxResults(1)
 		;
@@ -52,6 +53,7 @@ class NotificationRepository extends EntityRepository
 		->join('p.etudiants','u')
 		->andWhere("u.id = ?1")
 		->setParameter('1', $user_id)
+		->andWhere('n.user != ?1')
 		->addOrderBy('n.id','DESC')
 		->setMaxResults(6)
 		;
@@ -79,6 +81,7 @@ class NotificationRepository extends EntityRepository
 		->join('e.enseignant', 'ens')
 		->andWhere("ens.id = ?2")
 		->setParameter('2', $user_id)
+		->andWhere('n.user != ?2')
 		->addOrderBy('n.id','DESC')
 		->setMaxResults(1)
 		;
@@ -100,8 +103,9 @@ class NotificationRepository extends EntityRepository
 		->from('ProjetCoursBundle:Notification', 'n')
 		->join('n.enseignement', 'e')
 		->join('e.enseignant', 'ens')
-		->andWhere("ens.id = ?1")
+		->andWhere('ens.id = ?1')
 		->setParameter('1', $user_id)
+		->andWhere('n.user != ?1')
 		->addOrderBy('n.id','DESC')
 		->setMaxResults(6)
 		;

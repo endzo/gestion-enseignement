@@ -13,6 +13,60 @@ use Doctrine\ORM\EntityRepository;
 class MessageRepository extends EntityRepository
 {
 	
+	public function updateMessageConversations($id,$user_id)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->update('ProjetUserBundle:Conversation', 'c')
+		->set('c.vu', 1)
+		->where('c.message = :id')
+		->andWhere('c.user != ?1')
+		->setParameter('1', $user_id)
+		->setParameter('id', $id)
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	
+	
+	public function findIncomingMessages($id)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('m')
+		->from('ProjetUserBundle:Message', 'm')
+		->join('m.boites', 'b')
+		->addSelect('b')
+		->where('b.user = :id')
+		->setParameter('id', $id)
+		->join('m.conversations', 'cs')
+		->andWhere('cs.vu = 0')
+		->andWhere('cs.user != :id')
+		->andWhere($qb->expr()->in('b.type_envoi', array('sender','receiver')))
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public function findBoiteReception($id)
 	{
 		
@@ -71,11 +125,9 @@ class MessageRepository extends EntityRepository
 	
 		$qb->select('m')
 			->from('ProjetUserBundle:Message', 'm')
-			->where('m.user = :id')
-			->setParameter('id', $id)
 			->join('m.boites', 'b')
 			->addSelect('b')
-			->andWhere('b.user = :id')
+			->where('b.user = :id')
 			->setParameter('id', $id)
 			->andWhere($qb->expr()->in('b.type_envoi', array('sender','receiver')))
 		;

@@ -6,8 +6,11 @@
 
 {% block fos_user_content %}
 
-<h1>Message list</h1>
+<div class="alert alert-warning"><h2>Messagerie</h2></div>
+{% include "ProjetUserBundle:Message:outils.html.twig" %}
 
+<div id="messages-box">
+{% if entities %}
 <table class="table">
     <thead>
         <tr>
@@ -17,34 +20,25 @@
             <th>Actions</th>
         </tr>
     </thead>
+{% else %}
+<div class="alert alert-danger"><h2>Vous n'avez pas de messages !</h2></div>    
+{% endif %}
     <tbody>
     {% for entity in entities %}
         <tr>
             <td>{{ entity.sujet }}</td>
-            <td>{{ entity.destinataire }}</td>
-            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
+            <td>{{ app.user == entity.user ? entity.destinataire : entity.user }}</td>
+            <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d à H:i:s') }}{% endif%}</td>
             <td>
                 <ul>
                     <li>
                         <a href="{{ path('message_show', { 'id': entity.id }) }}">show</a>
                     </li>
-                    <!-- <li>
-                        <a href="{{ path('message_edit', { 'id': entity.id }) }}">edit</a>
-                    </li> -->
                 </ul>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
-
-{#
-<ul>
-    <li>
-        <a href="{{ path('message_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
-#}
+</div>
 {% endblock %}

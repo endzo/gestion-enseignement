@@ -84,6 +84,7 @@ class Boite
     public function __construct()
     {
     	$this->created_at = new \DateTime('now');
+    	$this->vu = 0;
     }
     
     // toString méthode

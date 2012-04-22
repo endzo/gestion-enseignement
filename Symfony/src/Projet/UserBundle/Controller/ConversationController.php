@@ -13,6 +13,28 @@ use Projet\UserBundle\Form\ConversationType;
  */
 class ConversationController extends Controller
 {
+	
+	public function incomingAction($id_message)
+	{
+		// recuperation de l'utilisateur courant
+		$user = $this->container->get('security.context')->getToken()->getUser();
+	
+		$em = $this->getDoctrine()->getEntityManager();
+		$entities = $em->getRepository('ProjetUserBundle:Conversation')
+						->findIncomingConversations($id_message, $user->getId());
+		
+		$em->getRepository('ProjetUserBundle:Message')
+			->updateMessageConversations($id_message, $user->getId());
+	
+		return $this->render('ProjetUserBundle:Conversation:index.html.twig', array(
+				'conversations' => $entities
+	));
+	
+	}
+	
+	
+	
+	
     /**
      * Lists all Conversation entities.
      *

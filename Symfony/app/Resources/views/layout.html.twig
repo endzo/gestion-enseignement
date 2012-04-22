@@ -35,9 +35,10 @@
 		<td class="v-top">
 		
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<ul id="news-box" class="notif-content pull-left">
-			{% include "ProjetCoursBundle:Notification:index.html.twig" %}
-		</ul>
+		<div class="">
+			<br><br><h3 class="alert"> {{ 'Fil d\'actualités' }} </h3>
+			<ul id="news-box" class="notif-content"></ul>
+		</div>
 		{% endif %}
 		
 		</td>	
@@ -69,6 +70,10 @@
 			
 		<td id=alerte-cell class="v-top">
 		
+		<div id="msg-content">
+		<br><br><h3 class="alert"> {{ 'Messages' }} </h3>
+		<ul id="msg-box" class="notif-content"></ul>
+		</div>
 		<div id="notif-box" class="notif-content pull-right">
 			<div id="alerte-content" class="">
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>

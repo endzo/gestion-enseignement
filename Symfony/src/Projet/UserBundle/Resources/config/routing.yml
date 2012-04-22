@@ -1,3 +1,11 @@
+nouvelle_conversation:
+    pattern: /nouvelle_conversation/{id_message}
+    defaults: { _controller: "ProjetUserBundle:Conversation:incoming"}
+
+nouveaux_messages:
+    pattern: /nouveaux_messages
+    defaults: { _controller: "ProjetUserBundle:Message:incoming" }
+
 messages_envoyer:
     pattern:  /mes_messages_envoyer
     defaults: { _controller: "ProjetUserBundle:Message:indexEnvoyer" }
