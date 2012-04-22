@@ -18,6 +18,23 @@ use Projet\UserBundle\Form\ConversationType;
 class MessageController extends Controller
 {
 	
+	public function incomingAction()
+	{
+		// recuperation de l'utilisateur courant
+		$user = $this->container->get('security.context')->getToken()->getUser();
+	
+		$em = $this->getDoctrine()->getEntityManager();
+		$entities = $em->getRepository('ProjetUserBundle:Message')->findIncomingMessages($user->getId());
+	
+	
+		return $this->render('ProjetUserBundle:Message:incomingMessages.html.twig', array(
+				'messages' => $entities
+	));
+	
+	}
+	
+
+	
 	/**
 	 * Lists all Message entities.
 	 *
@@ -76,24 +93,6 @@ class MessageController extends Controller
     	
     	$entities = $em->getRepository('ProjetUserBundle:Message')->findUserMessages($user->getId());
     	
-    	
-    	
-    	
-    	if($request->isXmlHttpRequest()) {
-    		die ('test javascript');
-    		$request = $this->getRequest();
-    		$id = $request->get('id');
-    		
-    		$json = json_encode(array(
-    			'entities' => $entities
-    		));
-    	
-    		$response = new Response();
-    		$response->headers->set('Content-Type', 'application/json');
-    		$response->setContent($json);
-    		return $response;
-    	}
-    	
 
         return $this->render('ProjetUserBundle:Message:index.html.twig', array(
             'entities' => $entities
@@ -106,16 +105,19 @@ class MessageController extends Controller
      */
     public function showAction($id)
     {
+    	$user = $this->container->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('ProjetUserBundle:Message')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Message entity.');
+            throw $this->createNotFoundException('Ce message n\' existe plus !!!');
         }
 
         
+        $em->getRepository('ProjetUserBundle:Message')->updateMessageConversations($id, $user->getId());
         $conversations = $entity->getConversations();
+        
         $form   = $this->createForm(new ConversationType(), new Conversation());
         
         $deleteForm = $this->createDeleteForm($id);
@@ -197,11 +199,17 @@ class MessageController extends Controller
         	
         	$entity->setUser($user);
         	
+        	$conversation  = new Conversation();
+        	$conversation->setMessage($entity);
+        	$conversation->setMsg($entity->getMessage());
+        	$conversation->setUser($user);
+        	
         	
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->persist($boite);
             $em->persist($boite1);
+            $em->persist($conversation);
             $em->flush();
 
             return $this->redirect($this->generateUrl('message_show', array('id' => $entity->getId())));

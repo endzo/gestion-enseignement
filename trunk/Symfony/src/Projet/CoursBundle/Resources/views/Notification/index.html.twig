@@ -1,7 +1,6 @@
 {% if news is defined %}
 	{% set first = 1 %}
     {% for new in news %}
-    	{% if app.user != new.user %}	
     	
         <li class="alert alert-success">
             {{ new.nom|raw }}
@@ -11,6 +10,5 @@
 			{% endif %}        
         </li>
         
-        {% endif %}
     {% endfor %}
 {% endif %}

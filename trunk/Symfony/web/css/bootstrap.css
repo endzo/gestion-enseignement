@@ -7,6 +7,20 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
+ .fixed
+ {
+ 	position: fixed;
+ 	/*display : block;*/
+ }
+ 
+ 
+ .margin-right
+ {
+ 	margin-left		: 300px;
+ 	width			: 300px;
+ }
+ 
+ 
  
  .v-top
  {
@@ -21,7 +35,6 @@
  {
  	width				: 200px;
  	max-height			: 500px; 
- 	margin-top			: 50px;
  	margin-left			: -0px;
  }
  

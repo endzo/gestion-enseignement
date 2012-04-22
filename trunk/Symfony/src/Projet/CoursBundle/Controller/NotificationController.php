@@ -33,8 +33,7 @@ class NotificationController extends Controller
         	if( $this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
         	{
         		$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEnseignantNotifications($id,$user->getId());
-        	}
-        		
+        	}	
         	else 
         		$entities = $em->getRepository('ProjetCoursBundle:Notification')->findEtudiantNotifications($id,$user->getId());
         	

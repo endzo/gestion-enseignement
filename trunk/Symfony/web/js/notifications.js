@@ -1,5 +1,7 @@
 $(document).ready(function(){
 	setInterval(chargerNews,5000);
+	setInterval(incomingMessages,5000);
+	
 	
 	$('#destinataire').keyup(function(key)
 			  {
@@ -16,9 +18,7 @@ $(document).ready(function(){
 	
 	
 	var alert = 1;
-    /*$('#notif-box').hide();*/
-	$('#notifcontent').hide();
-	$('#msgcontent').hide();
+	$('#msg-content').hide();
 	$('#alerte-content').hide();
 	$('#forumcontent').hide();
 	$('#courscontent').hide();
@@ -36,26 +36,16 @@ $(document).ready(function(){
 			
 		});
 		
-	$('#notifnotif').click(
-		function()
-		{
-			$('#notifnotif').fadeTo("slow", 0.33);
-			$('#alertcontent').slideUp('slow');
-			$('#msgcontent').slideUp('slow');
-			$('#notifcontent').slideToggle('slow');
-			$('#nbr-notif').html('');
-			$('#nbr-notif').removeClass('nbr');
-		});
 		
-	$('#msgnotif').click(
+	$('#msg-notif').click(
 		function()
 		{
-			$('#msgnotif').fadeTo("slow", 0.33);
-			$('#alertcontent').slideUp('slow');
+			$('#msg-notif').fadeTo("slow", 0.33);
+			$('#alerte-content').slideUp('slow');
 			$('#notifcontent').slideUp('slow');
-			$('#msgcontent').slideToggle('slow');
+			$('#msg-content').slideToggle('slow');
 			$('#nbr-msg').html('');
-			$('#nbr-msg').removeClass('nbr');
+			$('#nbr-msg').removeClass('warningbox');
 		});
 		
 	$('#forum').click(
@@ -76,8 +66,6 @@ $(document).ready(function(){
 	{
 		var dt=new Date();	
 		
-		
-		//alert(dt.getSeconds());
 		if(dt.getSeconds() == 30 || dt.getSeconds() == 11 || dt.getSeconds() == 13 || dt.getSeconds() == 14 || dt.getSeconds() == 2)
 		{
 			$('#alertnotif').fadeTo("slow", 1);
@@ -100,7 +88,6 @@ function setId(id){
 }
 
 function chargerNews(){
-	
     jQuery.ajax({
         url: 'http://localhost/ProjetAnnee/web/app_dev.php/notification/'+dernier_id+'/last',
         success: function(data){
@@ -112,7 +99,7 @@ function chargerNews(){
             			
 	            		if($('#news-box').children().size() == 0)
 	            		{
-	            			$('#news-box').html("<br><br><br>Aucune actualité pour le moment !");
+	            			$('#news-box').html("<br><br>Aucune actualité pour le moment !");
 	            		}	
             		}
             	else
@@ -138,4 +125,34 @@ function chargerNews(){
         		}	
         }
     });
+    
 }
+
+
+
+function incomingMessages()
+{	
+	jQuery.ajax({
+	    url: 'http://localhost/ProjetAnnee/web/app_dev.php/nouveaux_messages',
+	    success: function(data){
+	    	$('#msg-box').html(data);
+	    	var nbr = $('#msg-box').children().size();
+	    	//alert(data);
+	    	if(nbr == 0)
+	    		{
+	    			$('#msg-box').html("<div class='alert alert-danger'>Pas de nouveaux messages !</div>");
+	        		$('#nbr-msg').html('');
+	    			$('#nbr-msg').removeClass('warningbox');
+	    		}
+	    	else
+	    		{
+	    			$('#msg-notif').fadeTo("slow", 1);
+	    			$('#nbr-msg').html(nbr);
+	    			$('#nbr-msg').addClass('warningbox');
+	    		}
+	    	
+	    }
+	});
+	
+}
+

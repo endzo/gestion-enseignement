@@ -10,48 +10,41 @@ $(document).ready(function(){
 
 	function timer()
 	{
+		
 		var dt=new Date();	
 		
-		alert({{ path('message_show', { 'id': '6' }) }});
-	    var id = 1;
-	    $.ajax({
-	      url: '{{ path('message_show', { 'id': entity.id }) }}',
-	      type: 'GET',
-	      data: {'id': id},
-	      dataType: 'json',
-	      success: function(data) {
-	        $('#conversation').append(dt.getSeconds());
-	      }
-	    });
-	    setTimeout(timer, 1000);
+		//alert('{{ path("message_show", { "id": entity.id }) }}');
+		//alert('test conversation');
+	    jQuery.ajax({
+		    url: '{{ path("nouvelle_conversation", { "id_message": entity.id }) }}',
+		    success: function(data){
+			    if(data != '')
+			    {
+			    	$('#conversations').append(data);
+			    }
+		    	
+		    }
+		});
+	    setTimeout(timer, 2000);
 	}
   	timer();
 
 });
 </script>
-<div class="alert alert-danger"><h1>Objet : {{ entity.sujet }}</h1></div>
-<div class="alert alert-warning"><h3>Avec  : {{ entity.destinataire }}</h3></div>
+<div class="alert alert-danger"><h2>Objet : {{ entity.sujet }}</h2></div>
+
+<div class="alert alert-warning"><h3>Avec  : 
+		{{ entity.user == app.user ? entity.destinataire : entity.user }}
+</h3></div>
 
 
-{% if entity.user == app.user %}
-		<div class="span4 alert alert-danger">
-			<div class="btn alert-info">moi :</div> 
-	{% else %}
-		<div class="span4 pull-right alert alert-success">
-			<div class="btn alert-info">{{ entity.user }} :</div> 
-	{% endif %}
-				<p>{{ entity.message }}</p>
-				<div class="pull-right alert-info">{{ entity.createdat|date('Y-m-d H:i:s') }}</div>
-</div>
-
-
-<div id="conversation">
+<div id="conversations">
 {% for c in conversations %}
 	{% if c.user == app.user %}
 		<div class="span4 alert alert-danger">
 			<div class="btn alert-info">moi :</div> 
 	{% else %}
-		<div class="span4 pull-right alert alert-success">
+		<div class="margin-right alert alert-success">
 			<div class="btn alert-info">{{ c.user }} :</div> 
 	{% endif %}
 			

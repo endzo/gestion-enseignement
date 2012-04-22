@@ -11,10 +11,5 @@ use Doctrine\ORM\EntityRepository;
  * repository methods below.
  */
 class BoiteRepository extends EntityRepository
-{
-	
-	
-	
-	
-	
+{		
 }

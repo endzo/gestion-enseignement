@@ -66,6 +66,13 @@ class Conversation
      * @ORM\Column(name="message", type="text")
      */
     private $msg;
+    
+    /**
+     * @var boolean $vu
+     *
+     * @ORM\Column(name="vu", type="boolean")
+     */
+    private $vu;
 
     /**
      * @var datetime $created_at
@@ -81,6 +88,7 @@ class Conversation
     public function __construct()
     {
     	$this->created_at = new \DateTime('now');
+    	$this->vu = 0;
     }
     
     // toString méthode
@@ -118,6 +126,26 @@ class Conversation
     public function getMsg()
     {
         return $this->msg;
+    }
+    
+    /**
+     * Set vu
+     *
+     * @param boolean $vu
+     */
+    public function setVu($vu)
+    {
+    	$this->vu = $vu;
+    }
+    
+    /**
+     * Get vu
+     *
+     * @return boolean
+     */
+    public function getVu()
+    {
+    	return $this->vu;
     }
 
     /**

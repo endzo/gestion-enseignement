@@ -1,0 +1,12 @@
+{% if messages is defined %}
+    {% for entity in messages %}
+        <li class="alert alert-warning">
+            objet : <a href="{{ path('message_show', { 'id': entity.id }) }}">{{ entity.sujet }}</a><br>
+            {% if entity.user != app.user %}
+            	avec  : {{ entity.user }}
+            {% else %}
+               avec : {{ entity.destinataire }}
+            {% endif %}
+ 		</li>
+    {% endfor %}
+{% endif %}
