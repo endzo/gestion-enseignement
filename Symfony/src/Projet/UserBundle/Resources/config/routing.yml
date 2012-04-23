@@ -1,6 +1,10 @@
+find_user_list:
+    pattern: /find_users/{tag}
+    defaults: { _controller: "ProjetUserBundle:User:usernames" }
+
 nouvelle_conversation:
     pattern: /nouvelle_conversation/{id_message}
-    defaults: { _controller: "ProjetUserBundle:Conversation:incoming"}
+    defaults: { _controller: "ProjetUserBundle:Conversation:incoming" }
 
 nouveaux_messages:
     pattern: /nouveaux_messages

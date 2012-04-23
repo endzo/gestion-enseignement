@@ -16,6 +16,21 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class UserController extends Controller
 {
 	
+	public function usernamesAction($tag)
+	{
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$entities = $em->getRepository('ProjetUserBundle:Message')->findUsers($tag);
+	
+		return $this->render('ProjetUserBundle:User:founded.html.twig', array(
+	'entities' => $entities
+	));
+	}
+	
+	
+	
+	
+	
 	
 	public function loginAction()
     {
