@@ -13,7 +13,7 @@
          			];
 	
 	$(document).ready(function(){
-
+		$('#user-sugg').html('commencer à saisir et le système va vous suggérer les destinataires valides :)');
 
 		$('li','ul#user-sugg').live('click', function(){
 			$('#destinataire').val($('#user-name', this).text());    
@@ -46,8 +46,8 @@
 	});
 	
 </script>
-<h2>Nouveau message</h2>
-
+<div class="alert alert-warning"><h2>Nouveau message</h2></div>
+<div class="alert alert-info">Utilisez les suggestions qui apparaissent à coté après saisie</div>
 <form action="{{ path('message_create') }}" method="post" {{ form_enctype(form) }}>
 
 
@@ -57,7 +57,7 @@
 
 	
     	<!-- Génération du label. -->
-    	{{ form_label(form.destinataire, "Destinataire") }}
+    	{{ form_label(form.destinataire, "Destinataire : login") }}
 
     	<!-- Affichage des erreurs pour ce champ précis. -->
     	{{ form_errors(form.destinataire) }}
