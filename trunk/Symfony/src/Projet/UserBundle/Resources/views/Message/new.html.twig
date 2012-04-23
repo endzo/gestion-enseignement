@@ -48,38 +48,48 @@
 </script>
 <div class="alert alert-warning"><h2>Nouveau message</h2></div>
 <div class="alert alert-info">Utilisez les suggestions qui apparaissent à coté après saisie</div>
-<form action="{{ path('message_create') }}" method="post" {{ form_enctype(form) }}>
+<table class="table">
+
+    <td>
+    	<form action="{{ path('message_create') }}" method="post" {{ form_enctype(form) }}>
 
 
 
-	<!-- Les erreurs générales du formulaire. -->
-	{{ form_errors(form) }}
+			<!-- Les erreurs générales du formulaire. -->
+			{{ form_errors(form) }}
+		
+			
+		    	<!-- Génération du label. -->
+		    	{{ form_label(form.destinataire, "Destinataire : login") }}
+		
+		    	<!-- Affichage des erreurs pour ce champ précis. -->
+		    	{{ form_errors(form.destinataire) }}
+		
+		
+			    <!-- Génération de l'input. -->
+			    {{ form_widget(form.destinataire, { 'id' : 'destinataire'}) }}
+		
+		
+			
+			<!-- Génération des champs pas encore écrits.
+		    	 Dans cet exemple, ça serait « date », « auteur » et « tags »,
+		     	mais aussi le champ CSRF (géré automatiquement par Symfony !)
+		     	et tous les champs cachés (type « hidden »). -->
+			{{ form_rest(form) }}
+			
+			
+			
+		    <p>
+		        <button type="submit">Envoyer</button>
+		    </p>
+			</form>
+    
+    </td>
+    
+    <td><ul id="user-sugg" class="alert"></ul></td>
+  </tr>
+</table>
 
-	
-    	<!-- Génération du label. -->
-    	{{ form_label(form.destinataire, "Destinataire : login") }}
 
-    	<!-- Affichage des erreurs pour ce champ précis. -->
-    	{{ form_errors(form.destinataire) }}
-
-
-	    <!-- Génération de l'input. -->
-	    {{ form_widget(form.destinataire, { 'id' : 'destinataire'}) }}
-
-	<ul id="user-sugg" class="alert margin-right"></ul>
-
-	
-	<!-- Génération des champs pas encore écrits.
-    	 Dans cet exemple, ça serait « date », « auteur » et « tags »,
-     	mais aussi le champ CSRF (géré automatiquement par Symfony !)
-     	et tous les champs cachés (type « hidden »). -->
-	{{ form_rest(form) }}
-	
-	
-	
-    <p>
-        <button type="submit">Envoyer</button>
-    </p>
-</form>
 
 {% endblock %}
