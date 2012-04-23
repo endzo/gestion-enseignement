@@ -13,6 +13,27 @@ use Doctrine\ORM\EntityRepository;
 class MessageRepository extends EntityRepository
 {
 	
+	public function findUsers($tag)
+	{
+	
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('u')
+		->from('ProjetUserBundle:User', 'u')
+		->where($qb->expr()->like('u.username', '?1'))
+		->setParameter(1, $tag.'%')
+		;
+	
+	
+		return $qb->getQuery()
+		->getResult();
+	}
+	
+	
+	
+	
+	
 	public function updateMessageConversations($id,$user_id)
 	{
 	
@@ -51,20 +72,14 @@ class MessageRepository extends EntityRepository
 		->andWhere('cs.vu = 0')
 		->andWhere('cs.user != :id')
 		->andWhere($qb->expr()->in('b.type_envoi', array('sender','receiver')))
+		->addOrderBy('m.id','DESC')
 		;
 	
 	
 		return $qb->getQuery()
 		->getResult();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	public function findBoiteReception($id)
@@ -81,6 +96,7 @@ class MessageRepository extends EntityRepository
         ->setParameter('id', $id)
 		->andWhere('b.type_envoi = :recu')
 		->setParameter('recu', 'receiver')
+		->addOrderBy('m.id','DESC')
 		;
 		
 	
@@ -106,6 +122,7 @@ class MessageRepository extends EntityRepository
 		->setParameter('id', $id)
 		->andWhere('b.type_envoi = :recu')
 		->setParameter('recu', 'sender')
+		->addOrderBy('m.id','DESC')
 		;
 	
 	
@@ -130,6 +147,7 @@ class MessageRepository extends EntityRepository
 			->where('b.user = :id')
 			->setParameter('id', $id)
 			->andWhere($qb->expr()->in('b.type_envoi', array('sender','receiver')))
+			->addOrderBy('m.id','DESC')
 		;
 	
 		return $qb->getQuery()

@@ -5,21 +5,81 @@
 {% endblock %}
 
 {% block fos_user_content %}
+<script type="text/javascript">
 
-<h1>Message creation</h1>
+	var availableTags = [
+         			"ActionScript",
+         			"AppleScript"
+         			];
+	
+	$(document).ready(function(){
+
+
+		$('li','ul#user-sugg').live('click', function(){
+			$('#destinataire').val($('#user-name', this).text());    
+		});
+		$('#destinataire').keyup(function(key)
+				  {
+			  		
+				    if (this.value.length >= 1)
+				    {
+				    	jQuery.ajax({
+						    url: '/ProjetAnnee/web/app_dev.php/find_users/'+this.value,
+						    success: function(data){
+							    if(data != '')
+							    {
+								    //sug = new array(data);
+								    //alert(data);
+							    	$('#user-sugg').html(data).hide().slideDown('slow');
+							    }
+							    else
+							    	$('#user-sugg').html('');
+						    }
+						});
+				    }
+				    else
+				    	$('#user-sugg').html('');
+		});
+		
+		
+
+	});
+	
+</script>
+<h2>Nouveau message</h2>
 
 <form action="{{ path('message_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
+
+
+
+	<!-- Les erreurs générales du formulaire. -->
+	{{ form_errors(form) }}
+
+	
+    	<!-- Génération du label. -->
+    	{{ form_label(form.destinataire, "Destinataire") }}
+
+    	<!-- Affichage des erreurs pour ce champ précis. -->
+    	{{ form_errors(form.destinataire) }}
+
+
+	    <!-- Génération de l'input. -->
+	    {{ form_widget(form.destinataire, { 'id' : 'destinataire'}) }}
+
+	<ul id="user-sugg" class="alert margin-right"></ul>
+
+	
+	<!-- Génération des champs pas encore écrits.
+    	 Dans cet exemple, ça serait « date », « auteur » et « tags »,
+     	mais aussi le champ CSRF (géré automatiquement par Symfony !)
+     	et tous les champs cachés (type « hidden »). -->
+	{{ form_rest(form) }}
+	
+	
+	
     <p>
-        <button type="submit">Create</button>
+        <button type="submit">Envoyer</button>
     </p>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('message') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
 {% endblock %}
