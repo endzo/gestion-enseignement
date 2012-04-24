@@ -89,13 +89,13 @@ function setId(id){
 
 function chargerNews(){
     jQuery.ajax({
-        url: 'http://localhost/ProjetAnnee/web/app_dev.php/notification/'+dernier_id+'/last',
+        url: '/ProjetAnnee/web/app_dev.php/notification/'+dernier_id+'/last',
         success: function(data){
             if(data!=''){
             	
             	if(!dernier_id)
             		{
-            			$('#news-box').html(data);
+            			$('#news-box').html(data).hide().slideDown('slow');
             			
 	            		if($('#news-box').children().size() == 0)
 	            		{
@@ -133,7 +133,7 @@ function chargerNews(){
 function incomingMessages()
 {	
 	jQuery.ajax({
-	    url: 'http://localhost/ProjetAnnee/web/app_dev.php/nouveaux_messages',
+	    url: '/ProjetAnnee/web/app_dev.php/nouveaux_messages',
 	    success: function(data){
 	    	$('#msg-box').html(data);
 	    	var nbr = $('#msg-box').children().size();
