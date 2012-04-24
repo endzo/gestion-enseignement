@@ -114,6 +114,12 @@ class EnseignementController extends Controller
      */
     public function newAction()
     {
+    	
+    	if(!$this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+    	{
+    		throw $this->createNotFoundException('Vous n\'êtes pas autorisé à creer un cours !');
+    	}
+    	
         $entity = new Enseignement();
         $form   = $this->createForm(new EnseignementType(), $entity);
 
@@ -136,11 +142,17 @@ class EnseignementController extends Controller
 
         if ($form->isValid()) {
         	
-        	
+        	$em = $this->getDoctrine()->getEntityManager();
         	$router = $this->get('router');
-        	$uri_cours = $router->generate('enseignement_show', array('id' => $entity->getId()));
+        	
         	
         	$user = $this->container->get('security.context')->getToken()->getUser();
+        	$entity->setEnseignant($user);
+        	
+        	$em->persist($entity);
+        	$em->flush();
+        	
+        	$uri_cours = $router->generate('enseignement_show', array('id' => $entity->getId()));
         	
         	$notif = new Notification();
         	$notif->setEnseignement($entity);
@@ -150,13 +162,10 @@ class EnseignementController extends Controller
         	);
         	$notif->setUser($user);
         	
-        	$entity->setEnseignant($user);
         	
-        	
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
-            $em->persist($notif);
-            $em->flush();
+        	$em->persist($notif);
+        	$em->flush();
+            
 
             return $this->redirect($this->generateUrl('enseignement_show', array('id' => $entity->getId())));
             
