@@ -5,10 +5,10 @@ namespace Projet\CoursBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Projet\CoursBundle\Entity\notification
+ * Projet\CoursBundle\Entity\Notification
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Projet\CoursBundle\Entity\notificationRepository")
+ * @ORM\Entity(repositoryClass="Projet\CoursBundle\Entity\NotificationRepository")
  */
 class Notification
 {
