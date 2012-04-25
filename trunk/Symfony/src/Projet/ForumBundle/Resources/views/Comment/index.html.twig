@@ -2,7 +2,11 @@
     <tbody>
     {% for comment in commentaires %}
         <tr>
-        	<td>{{ comment.user.prenom }} {{ comment.user.nom }} : </td>
+        	<td>
+        		<a href="{{ path('user_show', { 'id': comment.user.id }) }}">
+        			{{ comment.user.prenom }} {{ comment.user.nom }}</a> : 
+        	</td>
+        	
             <td>{{ comment.commentaire }}<br />
             	<div class="pull-right">
             		<a href="{{ path('comment_edit', { 'id': comment.id }) }}">supprimer</a>

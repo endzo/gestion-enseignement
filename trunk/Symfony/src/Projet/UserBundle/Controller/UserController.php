@@ -103,7 +103,7 @@ class UserController extends Controller
         $entity = $em->getRepository('ProjetUserBundle:User')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+            throw $this->createNotFoundException('Cet utilisateur est introuvable');
         }
 
         $deleteForm = $this->createDeleteForm($id);

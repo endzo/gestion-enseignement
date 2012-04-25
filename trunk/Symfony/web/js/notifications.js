@@ -1,9 +1,17 @@
 $(document).ready(function(){
 	setInterval(chargerNews,5000);
-	setInterval(incomingMessages,5000);
+	setInterval(incomingMessages,5000);	
 	
 	
-	$('#destinataire').keyup(function(key)
+	$('#news-content').scrollToFixed({
+        marginTop: $('userToolBar').outerHeight() + 10,
+        limit: $('#footer').offset().top - $('#news-content').outerHeight() - 10,
+        zIndex: 999
+    });
+	
+	
+	
+	$('#champs').keyup(function(key)
 			  {
 			    if (this.value.length >= 3 || this.value == '')
 			    {

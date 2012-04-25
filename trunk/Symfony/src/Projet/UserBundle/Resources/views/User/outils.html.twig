@@ -1,0 +1,27 @@
+
+
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container">
+			<ul class="nav">
+				
+				<li class="btn-danger">
+        			<a href="{{ path('user_edit', { 'id': entity.id }) }}">
+            		Mettre à jour
+        			</a>
+    			</li>
+				<li><a href="{{ path('messages_recu') }}">Messages reçu  </a></li>
+				<li><a href="{{ path('messages_envoyer') }}">Message envoyé  </a></li>
+				<li><a href="{{ path('message_new') }}">Nouveau message  </a></li>
+    			
+				{# <li>
+        			<form action="{{ path('enseignement_delete', { 'id': entity.id }) }}" method="post">
+            			{{ form_widget(delete_form) }}
+            			<button type="submit" class="btn btn-danger">Delete</button>
+        			</form>
+    			</li> #}		
+    			
+			</ul>
+		</div>
+	</div>
+</div>
