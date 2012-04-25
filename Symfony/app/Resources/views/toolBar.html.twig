@@ -1,10 +1,15 @@
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
  
-	<a class="brand" href="{{ path('fos_user_profile_show', { 'id': app.user.id }) }}">
+	<a class="brand btn-danger" href="{{ path('user_show', { 'id': app.user.id }) }}">
 		 {{ app.user.username }} </a>
 	
 	<ul class="nav">
 	              <li                  ><a href="{{ path('user_messages') }}">Messagerie</a></li>
+	              
+				{% if is_granted('ROLE_ENSEIGNANT') %}
+	              <li                  ><a href="{{ path('enseignement_new')     }}">Nouveau Cours</a></li>
+	            {% endif %}  
+	              
 	              <li                  ><a href="{{ path('mes_cours')     }}">Mes Cours</a></li>
 	              <li                  ><a href="{{ path('mon_forum')     }}">Mon Forum</a></li>
 	              <li id="msg-notif"   ><a href="#">Messages<span      id="nbr-msg" class=""></span></a></li>

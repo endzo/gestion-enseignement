@@ -12,8 +12,8 @@
 		{% endblock %}
 		<script src="{{ asset('js/jquery-1.7.1.js') }}"></script>
 		<script src="{{ asset('js/jquery-ui-1.8.18.custom.min.js') }}"></script>
+		<script src="{{ asset('js/jquery-scrolltofixed.js') }}"></script>
 		<script src="{{ asset('js/notifications.js') }}"></script>
-		<script src="{{ asset('js/utils.js') }}"></script>
 	</head>
 
 	<body>
@@ -35,7 +35,7 @@
 		<td class="v-top">
 		
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-		<div class="">
+		<div id="news-content">
 			<br><br><h3 class="alert"> {{ 'Fil d\'actualités' }} </h3>
 			<ul id="news-box" class="notif-content"></ul>
 		</div>
@@ -43,7 +43,7 @@
 		
 		</td>	
 		
-		<td>
+		<td class="v-top">
 		
 		<div class="container">
 			<div id="header" class="hero-unit">
@@ -96,6 +96,7 @@
 			<hr>
 
 			<footer>
+			<div id="footer">
 				<p>Projet d'année &copy; 2012 tous droits reservés.</p>
 			</div>
 		</div>

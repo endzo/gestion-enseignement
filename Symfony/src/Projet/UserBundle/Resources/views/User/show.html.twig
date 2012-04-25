@@ -4,34 +4,48 @@
 	Affichage- {{ parent() }}
 {% endblock %}
 
-{% block Enseignement_body %}
+{% block fos_user_content %}
 
-<h1>User</h1>
-<p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
-    <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-<table class="record_properties">
+{% if app.user.id == entity.id %}
+	{% include "ProjetUserBundle:User:outils.html.twig" %}
+{% endif %}
+
+<div class="alert btn-warning"> <h2>{{ entity.nom }}  {{ entity.prenom }}</h2></div>
+
+<table class="table">
     <tbody>
+    
         <tr>
-            <th>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}</th>
+            <th>Pseudo public</th>
             <td>{{ entity.username }}</td>
         </tr>
+        
         <tr>
-            <th>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}</th>
+            <th>Adresse E-mail</th>
             <td>{{ entity.email }}</td>
         </tr>
+        
         <tr>
-            <th>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}</th>
+            <th>Dernière connexion</th>
+            <td>{{ entity.lastLogin|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        
+        <tr>
+            <th>Sujets créés</th>
+            <td>{{ entity.promotion.enseignements|length }}</td>
+        </tr>
+        
+        <tr>
+            <th>Nombre de commentaire</th>
+            <td>{{ entity.commentaires|length }}</td>
+        </tr>
+        
+        <tr>
+            <th>Vote créés</th>
             <td>{{ entity.lastLogin|date('Y-m-d H:i:s') }}</td>
         </tr>
 
     </tbody>
 </table>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
-            Mettre à jours
-        </a>
-    </li>
-</ul>
 {% endblock %}

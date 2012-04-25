@@ -8,7 +8,14 @@
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
  
- 
+ #news-content
+ {
+ 	/*position:fixed;
+     left:0;
+     top:0;
+     width:250px;
+     z-index:1000;*/
+}
  
  .fixed
  {
