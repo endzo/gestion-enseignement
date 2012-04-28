@@ -2,6 +2,8 @@
 
 namespace Projet\UserBundle\Controller;
 
+use Projet\UserBundle\Form\UserTypePseudo;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Projet\UserBundle\Entity\User;
@@ -114,6 +116,22 @@ class UserController extends Controller
 
         ));
     }
+    
+    /**
+     * Finds and displays a User entity by the pseudo.
+     *
+     */
+    public function pseudoShowAction($pseudo)
+    {
+    	$em = $this->getDoctrine()->getEntityManager();
+    
+    	$entity = $em->getRepository('ProjetUserBundle:Etudiant')->findByNom($pseudo);
+    	
+    
+    	return $this->render('ProjetUserBundle:User:founded.html.twig', array(
+    				'entities'      => $entity,
+	    ));
+    }
 
     /**
      * Displays a form to create a new User entity.
@@ -171,6 +189,15 @@ class UserController extends Controller
      */
     public function editAction($id)
     {
+    	
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	
+    	if ($user->getId() != $id ) {
+    		throw $this->createNotFoundException('Vous n\'êtes pas autorisé à effectuer cette action.');
+    	}
+    	
+    	
+    	
         $em = $this->getDoctrine()->getEntityManager();
 
         $entity = $em->getRepository('ProjetUserBundle:User')->find($id);
@@ -188,6 +215,43 @@ class UserController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    
+    
+    /**
+     * Displays a form to edit an existing User entity.
+     *
+     */
+    public function pseudoAction($id)
+    {
+    	
+    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	
+    	if ($user->getId() != $id ) {
+    		throw $this->createNotFoundException('Vous n\'êtes pas autorisé à effectuer cette action.');
+    	}
+    	
+    	
+    	$em = $this->getDoctrine()->getEntityManager();
+    
+    	$entity = $em->getRepository('ProjetUserBundle:User')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find User entity.');
+    	}
+    
+    	$editForm = $this->createForm(new UserTypePseudo(), $entity);
+    	$deleteForm = $this->createDeleteForm($id);
+    
+    	return $this->render('ProjetUserBundle:User:editPseudo.html.twig', array(
+		    'entity'      => $entity,
+		    'edit_form'   => $editForm->createView(),
+		    'delete_form' => $deleteForm->createView(),
+	    ));
+    }
+    
+    
+    
 
     /**
      * Edits an existing User entity.
@@ -214,7 +278,7 @@ class UserController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
         }
 
         return $this->render('ProjetUserBundle:User:edit.html.twig', array(
@@ -223,6 +287,46 @@ class UserController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    
+    /**
+     * Edits an existing User entity.
+     *
+     */
+    public function updatePseudoAction($id)
+    {
+    	$em = $this->getDoctrine()->getEntityManager();
+    
+    	$entity = $em->getRepository('ProjetUserBundle:User')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find User entity.');
+    	}
+    
+    	$editForm   = $this->createForm(new UserTypePseudo(), $entity);
+    	$deleteForm = $this->createDeleteForm($id);
+    
+    	$request = $this->getRequest();
+    
+    	$editForm->bindRequest($request);
+    
+    	if ($editForm->isValid()) {
+    		$em->persist($entity);
+    		$em->flush();
+    
+    		return $this->redirect($this->generateUrl('user_show', array('id' => $id)));
+    	}
+    
+    	return $this->render('ProjetUserBundle:User:edit.html.twig', array(
+    'entity'      => $entity,
+    'edit_form'   => $editForm->createView(),
+    'delete_form' => $deleteForm->createView(),
+    ));
+    }
+    
+    
+    
+    
 
     /**
      * Deletes a User entity.

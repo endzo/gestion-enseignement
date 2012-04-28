@@ -10,13 +10,36 @@
 		{% block stylesheets %}
 			<link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css" />
 		{% endblock %}
+
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 		<script src="{{ asset('js/jquery-1.7.1.js') }}"></script>
 		<script src="{{ asset('js/jquery-ui-1.8.18.custom.min.js') }}"></script>
 		<script src="{{ asset('js/jquery-scrolltofixed.js') }}"></script>
 		<script src="{{ asset('js/notifications.js') }}"></script>
+                {% endif %}
 	</head>
 
 	<body>
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+	{% if app.user.etudiant %}
+		{% if app.user.pseudo is empty %}
+		<script src="{{ asset('js/pseudo.js') }}"></script>
+		<script type="text/javascript">setUserId('{{app.user.id}}');</script>
+		<div id="popup_pseudo" class="popup_block">
+			<h2>Vous devez choisir un pseudo !!</h2>
+			<p>
+				Ce peseudo vous permet à la fois de garder votre anonymat,
+				et d'acceder au forum pour pouvoir créer et commenter des sujets
+				ainsi que l'échange de l'information avec d'autres étudiants ou vos professeurs
+				
+				<div id="form-pseudo">chargement du formulaire ...</div>
+				
+			</p>
+		</div>
+		{% endif %}
+	{% endif %}
+	{% endif %}
+	
 	
 		<div id="userToolBar" class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -69,13 +92,16 @@
 			
 			
 		<td id=alerte-cell class="v-top">
-		
+
+		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
 		<div id="msg-content">
 		<br><br><h3 class="alert"> {{ 'Messages' }} </h3>
 		<ul id="msg-box" class="notif-content"></ul>
 		</div>
 		<div id="notif-box" class="notif-content pull-right">
 			<div id="alerte-content" class="">
+			<br><br><h3 class="alert"> {{ 'Alertes' }} </h3>
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
@@ -86,6 +112,8 @@
 				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
 			</div>
 		</div>
+ 
+                {% endif %}
 		
 		</td>
 			
@@ -99,7 +127,7 @@
 			<div id="footer">
 				<p>Projet d'année &copy; 2012 tous droits reservés.</p>
 			</div>
-		</div>
+		
 	</body>
 
 	{% block javascripts %}

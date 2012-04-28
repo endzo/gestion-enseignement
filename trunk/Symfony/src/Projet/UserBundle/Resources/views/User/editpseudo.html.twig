@@ -1,0 +1,74 @@
+<script>
+$('#submit-pseudo').hide();
+$('#pseudo').keyup(function(key){
+		    if (this.value.length >= 4)
+		    {
+		    	jQuery.ajax({
+				    url: '/ProjetAnnee/web/app_dev.php/user/'+this.value+'/pseudo_show',
+				    success: function(data){
+					    if(data == '')
+					    {
+					    	$('#pseudo-etat').removeClass('alert-warning');
+					    	$('#pseudo-etat').removeClass('alert-danger');
+					    	$('#pseudo-etat').addClass('alert-success');
+					    	$('#pseudo-etat').html('Le pseudo est valide');
+					    	$('#submit-pseudo').fadeIn();
+					    }
+					    else
+					    	{
+					    		$('#submit-pseudo').hide();
+					    		$('#pseudo-etat').removeClass('alert-warning');
+					    		$('#pseudo-etat').removeClass('alert-success');
+					    		$('#pseudo-etat').addClass('alert-danger');
+					    		$('#pseudo-etat').html('Ce pseudo existe déjà veuillez le changer');
+					    	}
+					    	
+				    }
+				});
+		    }
+		    else
+		    {
+		    	$('#submit-pseudo').hide();
+		    	$('#pseudo-etat').removeClass('alert-danger');
+		    	$('#pseudo-etat').removeClass('alert-success');
+		    	$('#pseudo-etat').addClass('alert-warning');
+		    	$('#pseudo-etat').html('Le pseudo doit comporter au moins 4 lettres !');
+		    }
+});
+
+</script>
+
+
+
+
+<div class="alert alert-warning pseudo-etat" id="pseudo-etat">Le pseudo doit comporter au moins 4 lettres ! </div>
+<form action="{{ path('user_update_pseudo', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	
+
+
+			<!-- Les erreurs générales du formulaire. -->
+			{{ form_errors(edit_form) }}
+		
+			
+		    	<!-- Génération du label. -->
+		    	{{ form_label(edit_form.pseudo, "Pseudo") }}
+		
+		    	<!-- Affichage des erreurs pour ce champ précis. -->
+		    	{{ form_errors(edit_form.pseudo) }}
+		
+		
+			    <!-- Génération de l'input. -->
+			    {{ form_widget(edit_form.pseudo, { 'id' : 'pseudo'}) }}
+		
+		
+			
+			<!-- Génération des champs pas encore écrits.
+		    	 Dans cet exemple, ça serait « date », « auteur » et « tags »,
+		     	mais aussi le champ CSRF (géré automatiquement par Symfony !)
+		     	et tous les champs cachés (type « hidden »). -->
+			{{ form_rest(edit_form) }}
+			    
+    <p>
+        <button id="submit-pseudo" class="alert alert-success" type="submit">Mettre à jour</button>
+    </p>
+</form>

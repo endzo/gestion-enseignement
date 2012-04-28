@@ -27,29 +27,11 @@ class SujetController extends Controller
 		// recuperation de l'utilisateur courant
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		
-		// test du Role de l'utilisateur
-		if($this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
-		{
-			$courss = $user->getEnseignements();
-		}
-		else
-		if($this->get('security.context')->isGranted('ROLE_USER') )
-		{
-			$courss = $user->getPromotion()->getEnseignements();
-		}
-		
-		
-		foreach ($courss as $cours) {
-			$sujets = $cours->getSujets();
-			foreach ($sujets as $sujet) {
-				$entities[] = $sujet;
-			}
+		$courss = $user->getEnseignements();
 			
-			
-		}
 	
 		return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
-	'entities' => $entities
+	'entities' => $courss
 	));
 	}
 	
@@ -167,6 +149,7 @@ class SujetController extends Controller
         			'</a>'
         	);
         	$notif->setUser($user);
+        	$entity->setUser($user);
 
         	
             $em = $this->getDoctrine()->getEntityManager();

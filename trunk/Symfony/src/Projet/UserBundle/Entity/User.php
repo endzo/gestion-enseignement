@@ -15,6 +15,28 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends BaseUser
 {
+	
+	//relation  entre enseignement et sujet
+	// sujet est la proprietaire de la relation
+	/**
+	 * @ORM\OneToMany(targetEntity="Projet\ForumBundle\Entity\Sujet", mappedBy="user")
+	 */
+	private $sujets;
+	
+	public function getSujets()
+	{
+		return $this->sujets;
+	}
+	
+	public function addSujet(\Projet\ForumBundle\Entity\Sujet $sujet)
+	{
+		$this->sujets[] = $sujet;
+		$sujet->setUser($this);
+	}
+	
+	
+	
+	
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\ForumBundle\Entity\Comment", mappedBy="user")
 	 */
@@ -181,5 +203,10 @@ class User extends BaseUser
     public function getPrenom()
     {
     	return $this->prenom;
+    }
+    
+    public function isEtudiant()
+    {
+    	return $this instanceof Etudiant;
     }
 }

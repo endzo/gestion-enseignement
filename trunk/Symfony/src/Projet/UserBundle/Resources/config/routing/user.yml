@@ -6,6 +6,10 @@ user_show:
     pattern:  /{id}/show
     defaults: { _controller: "ProjetUserBundle:User:show" }
 
+user_show_pseudo:
+    pattern:  /{pseudo}/pseudo_show
+    defaults: { _controller: "ProjetUserBundle:User:pseudoShow" }
+
 user_new:
     pattern:  /new
     defaults: { _controller: "ProjetUserBundle:User:new" }
@@ -19,9 +23,18 @@ user_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "ProjetUserBundle:User:edit" }
 
+user_edit_pseudo:
+    pattern:  /{id}/edit_pseudo
+    defaults: { _controller: "ProjetUserBundle:User:pseudo" }
+
 user_update:
     pattern:  /{id}/update
     defaults: { _controller: "ProjetUserBundle:User:update" }
+    requirements: { _method: post }
+
+user_update_pseudo:
+    pattern:  /{id}/update_pseudo
+    defaults: { _controller: "ProjetUserBundle:User:updatePseudo" }
     requirements: { _method: post }
 
 user_delete:

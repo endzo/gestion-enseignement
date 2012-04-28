@@ -5,33 +5,49 @@
 {% endblock %}
 
 {% block Forum_body %}
+<script>
 
-<h1>Sujet list</h1>
+$(document).ready(function (){
 
-<table class="table">
+	$('.sujet-content').hide();
+
+	$('.cours-content').click(function(){
+
+		$('.sujet-content',this).slideToggle('slow');
+
+		});
+
+});
+
+
+</script>
+
+
+{% for cours in entities %}
+<br /><div class="cours-content btn max-width"><h3>Cours : {{ cours.nom }}</h3>
+
+
+<table class="table sujet-content">
     <thead>
         <tr>
             <th>Sujet</th>
-            <th>Description</th>
             <th>Date de création</th>
             <th>Visibilite</th>
+            <th>Créé par</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-    {% for entity in entities %}
+    {% for entity in cours.sujets %}
         <tr>
             <td>{{ entity.nom }}</td>
-            <td>{{ entity.description }}</td>
             <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif%}</td>
             <td>{{ entity.visibilite }}</td>
+            <td>{{ entity.user }}</td>
             <td>
                 <ul>
                     <li>
                         <a href="{{ path('sujet_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('sujet_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
             </td>
@@ -39,12 +55,6 @@
     {% endfor %}
     </tbody>
 </table>
-
-<ul>
-    <li>
-        <a href="{{ path('sujet_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+</div>
+{% endfor %}
 {% endblock %}

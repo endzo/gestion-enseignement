@@ -70,23 +70,9 @@ $(document).ready(function(){
 			$('#courscontent').slideDown('slow');
 		});
 		
-	function timer()
-	{
-		var dt=new Date();	
-		
-		if(dt.getSeconds() == 30 || dt.getSeconds() == 11 || dt.getSeconds() == 13 || dt.getSeconds() == 14 || dt.getSeconds() == 2)
-		{
-			$('#alertnotif').fadeTo("slow", 1);
-			$('#alertnbr').html('3');
-			$('#alertnbr').addClass('nbr');
-			$('#alertnbr').effect("bounce", { times:3 }, 300);
-		}	
-			
-		$('#conversation').load('index.html.twig');
-		setTimeout(timer, 1000);
-	}
-  	timer();
-
+	
+	
+	
 });
 
 
@@ -121,10 +107,7 @@ function chargerNews(){
 	                    					$(this).remove();
 	                    				});
 	                    	}
-	            		
-            		}
-                
-                
+            		}  
             }
             else
             	if($('#news-box').children().size() == 0)
@@ -145,7 +128,6 @@ function incomingMessages()
 	    success: function(data){
 	    	$('#msg-box').html(data);
 	    	var nbr = $('#msg-box').children().size();
-	    	//alert(data);
 	    	if(nbr == 0)
 	    		{
 	    			$('#msg-box').html("<div class='alert alert-danger'>Pas de nouveaux messages !</div>");
