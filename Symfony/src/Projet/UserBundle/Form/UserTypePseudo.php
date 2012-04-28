@@ -5,19 +5,18 @@ namespace Projet\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class UserType extends AbstractType
+class UserTypePseudo extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('username')
+            //->add('username')
             //->add('password')
             //->add('usernameCanonical')
-            ->add('email')
-            ->add('nom')
-            ->add('prenom')
-            ->add('promotion');
-            //->add('pseudo')
+            //->add('email')
+            //->add('nom')
+            //->add('prenom')
+            ->add('pseudo')
             //->add('emailCanonical')
             //->add('enabled')
             //->add('salt')

@@ -1,7 +1,7 @@
 {% extends "ProjetUserBundle::layout.html.twig" %}
 
 {% block title %}
-	Affichage- {{ parent() }}
+	Profil- {{ parent() }}
 {% endblock %}
 
 {% block fos_user_content %}
@@ -10,11 +10,18 @@
 	{% include "ProjetUserBundle:User:outils.html.twig" %}
 {% endif %}
 
-<div class="alert btn-warning"> <h2>{{ entity.nom }}  {{ entity.prenom }}</h2></div>
+<div class="btn max-width"> <h2>{{ entity.nom }}  {{ entity.prenom }}</h2></div>
 
 <table class="table">
     <tbody>
-    
+    {% if app.user.etudiant %}
+    	<tr>
+            <th>Pseudo privé</th>
+            <td><div class="alert-warning">Vous êtes le seul à le visualiser</div>
+            	{{ entity.pseudo }}
+            </td>
+        </tr>
+    {% endif %}
         <tr>
             <th>Pseudo public</th>
             <td>{{ entity.username }}</td>
@@ -32,11 +39,11 @@
         
         <tr>
             <th>Sujets créés</th>
-            <td>{{ entity.promotion.enseignements|length }}</td>
+            <td>{{ entity.enseignements|length }}</td>
         </tr>
         
         <tr>
-            <th>Nombre de commentaire</th>
+            <th>Commentaire postés</th>
             <td>{{ entity.commentaires|length }}</td>
         </tr>
         

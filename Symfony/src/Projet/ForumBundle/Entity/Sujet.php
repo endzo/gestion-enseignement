@@ -13,6 +13,26 @@ use Doctrine\ORM\Mapping as ORM;
 class Sujet
 {
 	
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\User", inversedBy="sujets")
+	 */
+	private $user;
+	
+	public function getUser()
+	{
+		return $this->user;
+	}
+	
+	public function setUser(\Projet\UserBundle\Entity\User $user)
+	{
+		$this->user = $user;
+	}
+	
+	
+	
+	
+	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\CoursBundle\Entity\Enseignement", inversedBy="sujets")
 	 */
