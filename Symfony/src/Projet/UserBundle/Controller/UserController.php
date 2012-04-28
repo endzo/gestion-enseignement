@@ -124,12 +124,19 @@ class UserController extends Controller
     public function pseudoShowAction($pseudo)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$entity = $em->getRepository('ProjetUserBundle:Etudiant')->findByNom($pseudo);
+    	
+    	$entity = array();
+    	$users = $em->getRepository('ProjetUserBundle:Etudiant')->findAll();
+    	foreach ($users as $user) {
+    		if ($user->getPseudo() == $pseudo)
+    		{
+    			$entity[] = $user;
+    		}	
+    	}
     	
     
     	return $this->render('ProjetUserBundle:User:founded.html.twig', array(
-    				'entities'      => $entity,
+    				'entities'      => $entity
 	    ));
     }
 
