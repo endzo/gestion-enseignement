@@ -35,7 +35,7 @@ enseignement_addEvaluation:
 
 enseignement_createEvaluation:
     pattern:  /{id_cours}/create_evaluation
-    defaults: { _controller: "ProjetCorusBundle:Evaluation:create" }
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:create" }
     requirements: { _method: post } 
 
 enseignement:
