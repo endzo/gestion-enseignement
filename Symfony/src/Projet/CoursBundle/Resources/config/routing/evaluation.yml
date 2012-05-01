@@ -1,0 +1,30 @@
+evaluation:
+    pattern:  /
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:index" }
+
+evaluation_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:show" }
+
+evaluation_new:
+    pattern:  /new
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:new" }
+
+evaluation_create:
+    pattern:  /create
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:create" }
+    requirements: { _method: post }
+
+evaluation_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:edit" }
+
+evaluation_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:update" }
+    requirements: { _method: post }
+
+evaluation_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:delete" }
+    requirements: { _method: post }

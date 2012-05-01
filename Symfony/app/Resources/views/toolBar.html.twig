@@ -8,7 +8,9 @@
 	              
 				{% if is_granted('ROLE_ENSEIGNANT') %}
 	              <li                  ><a href="{{ path('enseignement_new')     }}">Nouveau Cours</a></li>
-	            {% endif %}  
+	            {% else %}
+				  <li                  ><a href="{{ path('enseignement_new')     }}">Créer un vote</a></li>				
+				{% endif %}  
 	              
 	              <li                  ><a href="{{ path('mes_cours')     }}">Mes Cours</a></li>
 	              <li                  ><a href="{{ path('mon_forum')     }}">Mon Forum</a></li>

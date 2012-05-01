@@ -27,12 +27,18 @@ class SujetController extends Controller
 		// recuperation de l'utilisateur courant
 		$user = $this->container->get('security.context')->getToken()->getUser();
 		
-		$courss = $user->getEnseignements();
+		$em = $this->getDoctrine()->getEntityManager();
+    	
+		if( $this->get('security.context')->isGranted('ROLE_ENSEIGNANT') )
+    		$courss = $em->getRepository('ProjetCoursBundle:Enseignement')->findEnseignantCoursWithSujets($user->getId());
+		else
+			$courss = $em->getRepository('ProjetCoursBundle:Enseignement')->findEtudiantCoursWithSujets($user->getPromotion()->getId());
+		
 			
 	
 		return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
-	'entities' => $courss
-	));
+				'entities' => $courss
+			));
 	}
 	
 	

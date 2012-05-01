@@ -1,0 +1,17 @@
+{% extends "ProjetCoursBundle::layout.html.twig" %}
+
+{% block title %}
+	Evaluation - {{ parent() }}
+{% endblock %}
+
+{% block Enseignement_body %}
+<h1>Evaluation creation</h1>
+
+<form action="{{ path('enseignement_createEvaluation', {'id_cours' : id_cours}) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button class="btn btn-success" type="submit">Evaluer</button>
+    </p>
+</form>
+
+{% endblock %}

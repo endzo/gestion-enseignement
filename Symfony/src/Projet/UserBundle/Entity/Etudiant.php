@@ -14,6 +14,25 @@ class Etudiant extends User
 {	
 	
 	/**
+	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Evaluation", mappedBy="etudiant")
+	 */
+	private $evaluations;
+	
+	public function getEvaluations()
+	{
+		return $this->evaluations;
+	}
+	
+	public function addEvaluation(\Projet\CoursBundle\Entity\Evaluation $evaluation)
+	{
+		$this->evaluations[] = $evaluation;
+		$evaluation->setEtudiant($this);
+	}
+	
+	
+	
+	
+	/**
 	 * @ORM\ManyToOne(targetEntity="Projet\UserBundle\Entity\Promotion", inversedBy="etudiants")
 	 */
 	private $promotion;
@@ -82,7 +101,6 @@ class Etudiant extends User
     {
     	return $this->decrypter($this->id, $this->pseudo);
     }
-    
     
     
     // cryptage
