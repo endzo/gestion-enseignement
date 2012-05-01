@@ -12,4 +12,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class EnseignementRepository extends EntityRepository
 {
+	
+	
+	public function findEtudiantCoursWithSujets($promotion_id)
+	{
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+		
+		$qb->select('cs')
+		->from('ProjetCoursBundle:Enseignement', 'cs')
+		->where('cs.promotion = ?1')
+		->setParameter('1', $promotion_id)
+		->addSelect('s')
+		->join('cs.sujets', 's')
+		;
+		
+		
+		return $qb->getQuery()->getResult();
+	}
+	
+	
+	
+	public function findEnseignantCoursWithSujets($prof_id)
+	{
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
+	
+		$qb->select('cs')
+		->from('ProjetCoursBundle:Enseignement', 'cs')
+		->where('cs.enseignant = ?1')
+		->setParameter('1', $prof_id)
+		->addSelect('s')
+		->join('cs.sujets', 's')
+		;
+	
+	
+		return $qb->getQuery()->getResult();
+	}
 }

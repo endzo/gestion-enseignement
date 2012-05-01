@@ -20,6 +20,7 @@
 	</head>
 
 	<body>
+	<!-- Verification de la presence du pseudo si l utilisateur est etudiant -->
 	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 	{% if app.user.etudiant %}
 		{% if app.user.pseudo is empty %}
@@ -59,7 +60,7 @@
 		
 		{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 		<div id="news-content">
-			<br><br><h3 class="alert"> {{ 'Fil d\'actualités' }} </h3>
+			<br><br><h3 class="alert alert-warning"> {{ 'Fil d\'actualités' }} </h3>
 			<ul id="news-box" class="notif-content"></ul>
 		</div>
 		{% endif %}
@@ -102,14 +103,7 @@
 		<div id="notif-box" class="notif-content pull-right">
 			<div id="alerte-content" class="">
 			<br><br><h3 class="alert"> {{ 'Alertes' }} </h3>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Vous êtes attribué à un nouveau cours</div>
-				<div class="alert alert-danger">Utilisateur à commenté le sujet: JAVA</div>
+				<div class="alert alert-danger">Cette partie est en cours de construction</div>
 			</div>
 		</div>
  

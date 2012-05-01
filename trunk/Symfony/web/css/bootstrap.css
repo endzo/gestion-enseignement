@@ -62,11 +62,7 @@ position: absolute;
  
  #news-content
  {
- 	/*position:fixed;
-     left:0;
-     top:0;
-     width:250px;
-     z-index:1000;*/
+ 	width: 250px;
 }
  
  .fixed
@@ -95,7 +91,7 @@ position: absolute;
  }
  .notif-content
  {
- 	width				: 200px;
+ 	width				: 250px;
  	max-height			: 500px; 
  	margin-left			: -0px;
  }

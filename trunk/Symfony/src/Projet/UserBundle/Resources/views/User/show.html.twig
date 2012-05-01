@@ -17,8 +17,7 @@
     {% if app.user.etudiant %}
     	<tr>
             <th>Pseudo privé</th>
-            <td><div class="alert-warning">Vous êtes le seul à le visualiser</div>
-            	{{ entity.pseudo }}
+            <td>{{ entity.pseudo }}<div class="alert alert-warning">Vous êtes le seul à le visualiser</div>
             </td>
         </tr>
     {% endif %}
@@ -39,7 +38,7 @@
         
         <tr>
             <th>Sujets créés</th>
-            <td>{{ entity.enseignements|length }}</td>
+            <td>{{ entity.sujets|length }}</td>
         </tr>
         
         <tr>

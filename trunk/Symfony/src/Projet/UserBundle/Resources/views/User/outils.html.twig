@@ -5,9 +5,14 @@
 		<div class="container">
 			<ul class="nav">
 				
-				<li class="btn-danger">
+				<li class="">
         			<a href="{{ path('user_edit', { 'id': entity.id }) }}">
             		Mettre à jour
+        			</a>
+    			</li>
+    			<li class="">
+        			<a href="{{ path('fos_user_change_password', { 'id': entity.id }) }}">
+            		Changer le mot de Passe
         			</a>
     			</li>
 				<li><a href="{{ path('messages_recu') }}">Messages reçu  </a></li>

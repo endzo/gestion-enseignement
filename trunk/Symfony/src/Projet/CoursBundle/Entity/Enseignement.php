@@ -13,6 +13,25 @@ use Doctrine\ORM\Mapping as ORM;
 class Enseignement
 {
 	
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Evaluation", mappedBy="enseignement")
+	 */
+	private $evaluations;
+	
+	public function getEvaluations()
+	{
+		return $this->evaluations;
+	}
+	
+	public function addEvaluation(\Projet\CoursBundle\Entity\Evaluation $evaluation)
+	{
+		$this->evaluations[] = $evaluation;
+		$evaluation->setEnseignement($this);
+	}
+	
+	
+	
 	/**
 	 * @ORM\OneToMany(targetEntity="Projet\CoursBundle\Entity\Notification", mappedBy="enseignement")
 	 */

@@ -10,25 +10,7 @@ class UserTypePseudo extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            //->add('username')
-            //->add('password')
-            //->add('usernameCanonical')
-            //->add('email')
-            //->add('nom')
-            //->add('prenom')
             ->add('pseudo')
-            //->add('emailCanonical')
-            //->add('enabled')
-            //->add('salt')
-            //->add('lastLogin')
-            //->add('locked')
-            //->add('expired')
-            //->add('expiresAt')
-            //->add('confirmationToken')
-            //->add('passwordRequestedAt')
-            //->add('roles')
-            //->add('credentialsExpired')
-            //->add('credentialsExpireAt')
         ;
     }
 

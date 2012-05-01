@@ -5,24 +5,21 @@ namespace Projet\CoursBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 
-class DevoirType extends AbstractType
+class EvaluationType extends AbstractType
 {
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('description')
+            ->add('note')
+            ->add('remarque')
             //->add('created_at')
-            ->add('expire_at')
-            ->add('type')
-            //->add('document')
+            //->add('etudiant')
             //->add('enseignement')
-	        ->add('document', new DocumentType())
         ;
     }
 
     public function getName()
     {
-        return 'projet_coursbundle_devoirtype';
+        return 'projet_coursbundle_evaluationtype';
     }
 }
