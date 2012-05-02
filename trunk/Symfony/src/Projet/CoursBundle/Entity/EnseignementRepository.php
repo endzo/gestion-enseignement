@@ -12,7 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class EnseignementRepository extends EntityRepository
 {
+	public function setAverageNote($cours_id)
+	{
+		// On passe par le QueryBuilder vide de l'EntityManager pour l'exemple
+		$qb = $this->_em->createQueryBuilder();
 	
+		$avg = $this->_em->createQuery('SELECT AVG(eval.note) FROM ProjetCoursBundle:Evaluation eval WHERE eval.enseignement ='.$cours_id)->getSingleResult();
+		$qb->update('ProjetCoursBundle:Enseignement', 'e')
+		->set('e.note', $avg[1])
+		->where('e.id = ?1')
+		->setParameter('1', $cours_id)
+		;
+	
+	
+		return $qb->getQuery()->getResult();
+	}
 	
 	public function findEtudiantCoursWithSujets($promotion_id)
 	{

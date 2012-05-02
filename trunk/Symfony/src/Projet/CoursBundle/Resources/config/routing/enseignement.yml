@@ -1,3 +1,7 @@
+enseignement_evaluation:
+    pattern:  /{id_cours}/evaluations
+    defaults: { _controller: "ProjetCoursBundle:Evaluation:index" }
+
 enseignement_forum:
     pattern:  /{id}/forum
     defaults: { _controller: "ProjetForumBundle:Sujet:index" }

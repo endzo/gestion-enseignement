@@ -208,6 +208,13 @@ class Enseignement
      * @ORM\Column(name="actif", type="boolean")
      */
     private $actif;
+    
+    /**
+     * @var float $note
+     *
+     * @ORM\Column(name="note", type="float")
+     */
+    private $note;
 
     /**
      * @var datetime $created_at
@@ -321,6 +328,26 @@ class Enseignement
         return $this->actif;
     }
 
+    /**
+     * Set note
+     *
+     * @param float $note
+     */
+    public function setNote($note)
+    {
+    	$this->note = $note;
+    }
+    
+    /**
+     * Get note
+     *
+     * @return float
+     */
+    public function getNote()
+    {
+    	return $this->note;
+    }
+    
     /**
      * Set created_at
      *

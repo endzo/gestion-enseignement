@@ -7,7 +7,7 @@
         			{{ comment.user.prenom }} {{ comment.user.nom }}</a> : 
         	</td>
         	
-            <td>{{ comment.commentaire }}<br />
+            <td>{{ comment.commentaire }}<br /><br />
             	<div class="pull-right">
             		<a href="{{ path('comment_edit', { 'id': comment.id }) }}">supprimer</a>
             		{{ comment.createdat|date('Y-m-d H:i:s') }}

@@ -63,10 +63,10 @@ class SujetController extends Controller
     	
         
 
-        $entities =$cours->getSujets();
+        //$entities =$cours->getSujets();
 
         return $this->render('ProjetForumBundle:Sujet:index.html.twig', array(
-        		'entities' => $entities
+        		'entities' => $cours
         ));
     }
 
@@ -141,6 +141,9 @@ class SujetController extends Controller
         	$uri_cours = $router->generate('enseignement_show', array('id' => $cours->getId()));
         	
         	$user = $this->container->get('security.context')->getToken()->getUser();
+        	$entity->setUser($user);
+        	$em->persist($entity);
+        	$em->flush();
         	
         	$notif = new Notification();
         	$notif->setEnseignement($cours);
@@ -155,11 +158,9 @@ class SujetController extends Controller
         			'</a>'
         	);
         	$notif->setUser($user);
-        	$entity->setUser($user);
-
         	
-            $em = $this->getDoctrine()->getEntityManager();
-            $em->persist($entity);
+        	
+        	
             $em->persist($notif);
             $em->flush();
 

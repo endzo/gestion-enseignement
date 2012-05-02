@@ -17,14 +17,16 @@ class EvaluationController extends Controller
      * Lists all Evaluation entities.
      *
      */
-    public function indexAction()
+    public function indexAction($id_cours)
     {
         $em = $this->getDoctrine()->getEntityManager();
 
-        $entities = $em->getRepository('ProjetCoursBundle:Evaluation')->findAll();
+        $entities = $em->getRepository('ProjetCoursBundle:Evaluation')->findAllForEnseignement($id_cours);
+        $cours = $em->getRepository('ProjetCoursBundle:Enseignement')->find($id_cours);
 
         return $this->render('ProjetCoursBundle:Evaluation:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $entities,
+            'cours'    => $cours
         ));
     }
 
@@ -96,8 +98,11 @@ class EvaluationController extends Controller
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('evaluation_show', array('id' => $entity->getId())));
+            
+            $em->getRepository('ProjetCoursBundle:enseignement')->setAverageNote($id_cours);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('enseignement_show', array('id' => $cours->getId())));
             
         }
 
