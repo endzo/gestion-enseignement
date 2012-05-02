@@ -11,6 +11,7 @@
 				<li><a href="{{ path('enseignement_addDocument', { 'id': entity.id }) }}">Ajouter un document</a></li>
 				<li><a href="{{ path('enseignement_addDevoir'  , { 'id': entity.id }) }}">Ajouter un devoir  </a></li>
     			<li><a href="{{ path('enseignement_edit', { 'id': entity.id }) }}">Modifier</a></li>
+    			<li><a href="{{ path('enseignement_evaluation', { 'id_cours': entity.id }) }}">Evaluations</a></li>
     			<li>
         			<form action="{{ path('enseignement_delete', { 'id': entity.id }) }}" method="post">
             			{{ form_widget(delete_form) }}
@@ -18,7 +19,7 @@
         			</form>
     			</li>
     			{% else %}
-    			<li><a href="{{ path('enseignement_addDocument', { 'id': entity.id }) }}">Créer un vote</a></li>
+    			<li><a href="{{ path('evaluation', { 'id': entity.id }) }}">Créer un vote</a></li>
     			<li><a href="{{ path('enseignement_addEvaluation', { 'id_cours': entity.id }) }}">Evaluer</a></li>
  				{% endif %}   			
     			

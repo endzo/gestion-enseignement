@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block Enseignement_body %}
-<h1>Evaluation creation</h1>
+<h3 class="alert alert-info">Evaluation</h3>
 
 <form action="{{ path('enseignement_createEvaluation', {'id_cours' : id_cours}) }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
